@@ -1,0 +1,28 @@
+.navbar {
+  margin-bottom: 0;
+}
+
+.explore-container {
+  width: 100%;
+  height: calc(100vh - 50px);
+}
+
+.activity-list-container {
+  display: inline-block;
+  float: left;
+  height: 100%;
+  overflow: scroll;
+  width: 50%;
+
+  .activity-item {
+    border-bottom: 1px solid #eee;
+    padding: 20px;
+  }
+}
+
+.map {
+  display: inline-block;
+  float: left;
+  width: 50%;
+  height: 100%;
+}

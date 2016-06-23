@@ -48,17 +48,7 @@
       </div>
     </div>
 
-    <div class="container">
     <div ng-view=""></div>
-    </div>
-
-    <hr/>
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
-    </div>
-
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -89,6 +79,8 @@
           };
           firebase.initializeApp(config);
           var database = firebase.database();
+
+          L.mapbox.accessToken = 'pk.eyJ1IjoieWFuZ3NodW4iLCJhIjoiY2lwc2lveWl5MDNmMGZ1bTJnZGo0cjNvaiJ9.8QAqxp3BmfhKcM1q2_EOMQ';
         </script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>

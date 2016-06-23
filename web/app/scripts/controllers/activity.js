@@ -9,8 +9,6 @@
  */
 angular.module('locopoly')
   .controller('ActivityCtrl', function ($scope) {
-    // var ref = new window.Firebase('https://locopoly-a44b8.firebaseio.com/activities');
-
     var defaultActivity = {
       current_attendees: 0,
       impressions: 0,
