@@ -1,0 +1,14 @@
+{
+  "name": "event-processor",
+  "version": "0.0.0",
+  "description": "Process event in firebase",
+  "main": "index.js",
+  "scripts": {
+    "serve": "",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "firebase": "^3.0.5"
+  }
+}
