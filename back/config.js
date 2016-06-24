@@ -13,5 +13,10 @@ module.exports = {
       "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/node-50%40locopoly-a44b8.iam.gserviceaccount.com"
     },
     databaseURL: "https://locopoly-a44b8.firebaseio.com/"
+  },
+  messenger: {
+    appSecret: "",
+    validationToken: "whatever",
+    pageAccessToken: "EAAI9wvmWIeUBAKZBZA3yoA7C9VvMfADhuGDbhpIckixZAX1WJfCbAUZA6xgFQNfPMQSNXcaZCf4q52F2otyGwrPthFhHQkitWNRyUZAmfOPjfBC2CcgxFOGR5PlEe7P61cnXTYUxMbKpjkyx8l6IagZAWFUZCTwmP9ZBfUZAj10podSQZDZD"
   }
 };
