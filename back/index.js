@@ -24,32 +24,31 @@ var firebaseApp = firebase.initializeApp(config.firebase);
 // Task one, monitoring firebase
 //
 
-//var auth = firebaseApp.auth();
 var database = firebaseApp.database();
-var token = firebase.auth().createCustomToken('something_special');
 
-//var eventsRef = database.ref("events");
-//eventsRef.orderByChild("createdAt").limitToFirst(5).on("child_added", function (snapshot) {
-//  //snapshot.update({"processed": true});
-//  console.log(snapshot.val());
-//});
+var usersRef = database.ref("data/users");
+var eventsRef = database.ref("data/events");
+var tagsRef = database.ref("data/tags");
+var interestsRef = database.ref("data/interests");
 
+eventsRef.limitToLast(1).on("child_added", function (snapshot) {
+  var data = snapshot.val();
+  if (!data.processed) {
+    console.log("\n============================");
+    console.log("start processing new message created at " + new Date(data.createdAt));
+    processor.processEvent(snapshot, usersRef, tagsRef, interestsRef);
+    console.log("done processing");
+  }
+});
 
-
-var tagsPool = [
-  "Badminton", "Yoga", "Writing", "Running", "Relaxing", "Painting",
-  "Golf", "Cooking", "Dancing", "Chess", "Bowling", "Basketball"
-];
-var userFaker = require('./faker/users');
-
-var userKeys = [];
-var usersRef = database.ref("users");
-for (var i = 0; i < 10; i++) {
-  var newUserRef = usersRef.push();
-  newUserRef.set(userFaker.generate());
-  userKeys.push(newUserRef.key);
-}
-console.log(userKeys);
-
+usersRef.limitToLast(1).on("child_added", function (snapshot) {
+  var data = snapshot.val();
+  if (!data.processed) {
+    console.log("\n============================");
+    console.log("start processing new user name: " + data.name);
+    processor.processUser(snapshot, interestsRef);
+    console.log("done processing");
+  }
+});
 
 console.log('Firebase started monitoring....');
