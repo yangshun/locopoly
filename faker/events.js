@@ -35,8 +35,8 @@ function generate(noAtt, noComm) {
   var creator = getRandomUser();
 
   var tags = [];
-  for (var i = 0; i < Math.floor((Math.random() * (tagsPool.length - 2)) + 2); i++) {
-    tags.push(tagsPool[i]);
+  for (var i = 0; i < Math.floor((Math.random() * 3) + 1); i++) {
+    tags.push(tagsPool[Math.floor((Math.random() * (tagsPool.length - 1)))]);
   }
 
   if (!noAtt) {
@@ -61,9 +61,9 @@ function generate(noAtt, noComm) {
   return {
     title: faker.lorem.words(),
     description: faker.lorem.sentence(),
-    startTime: faker.date.recent(),
-    endTime: faker.date.future(),
-    createdAt: faker.date.recent(),
+    startTime: faker.date.recent().getTime(),
+    endTime: faker.date.future().getTime(),
+    createdAt: faker.date.recent().getTime(),
     creator: creator,
     image: faker.image.image(),
     verified: faker.random.boolean(),

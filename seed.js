@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var firebase = require('firebase');
 var config = require('./config');
 
@@ -13,25 +14,61 @@ var tagsPool = [
   "Golf", "Cooking", "Dancing", "Chess", "Bowling", "Basketball"
 ];
 
-var usersRef = database.ref("users");
+var usersRef = database.ref("data/users");
+var eventsRef = database.ref("data/events");
 
 var usersList = [];
 userFaker.setTags(tagsPool);
-for (var i = 0; i < 10; i++) {
+eventFaker.setTags(tagsPool);
+
+function generateNewUser(count, callback) {
+  if (count == 0) {
+    callback();
+    return true;
+  }
   var user = userFaker.generate();
-  usersRef.push().set(user);
+  var newRef = usersRef.push();
+  newRef.set(user, function () {
+    console.log("users " + count + ". have been created!");
+    setTimeout(generateNewUser, 1200, count - 1, callback);
+  });
   //console.log(user);
   // cache the data
   usersList.push(user);
 }
-console.log("users have been created!");
 
-var eventsRef = database.ref("events");
-eventFaker.setTags(tagsPool);
-eventFaker.setUsers(usersList);
-for (var j = 0; j < 20; j++) {
+function generateNewEvent(count, callback) {
+  if (count == 0) {
+    callback();
+    return true;
+  }
   var event = eventFaker.generate();
-  //console.log(event);
-  eventsRef.push().set(event);
+  eventsRef.push().set(event, function () {
+    console.log("events " + count + ". have been created!");
+    setTimeout(generateNewEvent, 1500, count - 1, callback);
+  });
 }
-console.log("events have been created!");
+
+function seedAllData() {
+  generateNewUser(20, function () {
+    console.log("users have all been created!");
+    eventFaker.setUsers(usersList);
+    generateNewEvent(40, function () {
+      console.log("events have all been created!");
+    })
+  });
+}
+
+function addNewEvents() {
+  usersRef.on("value", function (snapshot) {
+    data = _.values(snapshot.val());
+    eventFaker.setTags(tagsPool);
+    eventFaker.setUsers(data);
+    var event = eventFaker.generate(true, true);
+    //console.log(event);
+    eventsRef.push().set(event);
+  });
+}
+
+//addNewEvents();
+seedAllData();
