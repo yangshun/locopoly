@@ -130,6 +130,54 @@ $nav-font-size: 22px;
   color: $theme-purple;
 }
 
+.activity-type-background-event {
+  background-color: $theme-green;
+}
+
+.activity-type-background-games {
+  background-color: $theme-pink;
+}
+
+.activity-type-background-favour {
+  background-color: $theme-yellow;
+}
+
+.activity-type-background-buying {
+  background-color: $theme-orange;
+}
+
+.activity-type-background-selling {
+  background-color: $theme-purple;
+}
+
+.animated-circle {
+  opacity: 0.5;
+  border-radius: 50%;
+
+  -webkit-animation: LocoMarkerAnimation 2s ease-in-out infinite;
+  -moz-animation: LocoMarkerAnimation 2s ease-in-out infinite;
+  animation: LocoMarkerAnimation 2s ease-in-out infinite;
+
+  @-webkit-keyframes LocoMarkerAnimation {
+    0%, 100% {
+      opacity: 0.5;
+      width: 30px;
+      height: 30px;
+      margin-left: -15px;
+      margin-top: -15px;
+    }
+    $max-width: 60px;
+
+    50% {
+      opacity: 0;
+      width: $max-width;
+      height: $max-width;
+      margin-left: -$max-width/2;
+      margin-top: -$max-width/2;
+    }
+  }
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

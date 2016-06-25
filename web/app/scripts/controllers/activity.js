@@ -32,9 +32,21 @@ angular.module('locopoly')
         fillColor: TYPE_MAPPING[activity.type],
         fillOpacity: 1,
         stroke: false
-      })
-      circle.addTo(map);
+      });
+
       map.setView([activity.latitude, activity.longitude]);
+      var marker = L.marker([activity.latitude, activity.longitude], {
+        icon: L.divIcon({
+          iconSize: [30, 30],
+          iconAnchor: [15, 15],
+          popupAnchor: [0, 0],
+          shadowSize: [0, 0],
+          className: 'animated-circle activity-type-background-' + activity.type
+        })
+      });
+
+      circle.addTo(map);
+      marker.addTo(map);
     });
 
     var orderedMessagesRef = ref.child('comments').orderByChild('createdAt');
