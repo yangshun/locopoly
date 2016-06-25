@@ -1,9 +1,25 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-md-offset-1 page-container">
+    <div class="col-md-10 col-md-offset-1 page-container activity-page-container">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
-          <h1>{{activity.title}}</h1>
+          <div>
+            <span class="activity-section-bounty"><i class="fa fa-trophy"></i> &nbsp;{{activity.bounty}}</span>
+            <div class="activity-type activity-type-{{activity.type}}">
+              <i class="fa fa-3x fa-circle"></i> <span class="activity-type">{{activity.type}}</span>
+            </div>
+          </div>
+          <div class="row activity-section-primary-row">
+            <div class="col-md-6">
+              <h1>{{activity.title}}</h1>
+              <p class="activity-creator">
+                by {{activity.creator.name}} &nbsp;<i class="fa fa-check-circle" ng-show="activity.verified"></i>
+              </p>
+            </div>
+            <div class="col-md-6 text-right">
+              <button class="btn btn-success">JOIN</button>
+            </div>
+          </div>
           <hr/>
           <p>{{activity.address}}</p>
           <hr/>
