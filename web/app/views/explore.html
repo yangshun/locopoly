@@ -6,7 +6,7 @@
         <h3><em>No activities found</em></h3>
       </div>
     </div>
-    <div class="row activity-list-row" style="width: {{activities.length * 240}}px">
+    <div class="row activity-list-row" style="width: {{filteredActivities.length * 240}}px">
       <div ng-repeat="activity in filteredActivities = (activities | filter: $parent.filterSearch)" class="activity-item">
         <span class="activity-bounty"><i class="fa fa-trophy"></i> &nbsp;{{activity.bounty}}</span>
         <div class="activity-item-top-section">
