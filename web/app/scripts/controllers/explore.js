@@ -27,22 +27,25 @@ angular.module('locopoly')
     var locations = L.mapbox.featureLayer().addTo(map);
     var circles = [];
 
-    ref.on('value', function () {
-      $scope.$apply();
-      _.each(circles, function (circle) {
-        circle.removeLayer(map);
-      });
-
-      circles = _.map($scope.activities, function (activity) {
-        return L.circleMarker([activity.latitude, activity.longitude], {
-          fillColor: TYPE_MAPPING[activity.type],
-          fillOpacity: 1,
-          stroke: false
+    ref.on('value', function (snapshot) {
+      setTimeout(function () {
+        console.log(_.cloneDeep($scope.activities));
+        console.log('activities value');
+        _.each(circles, function (circle) {
+          circle.removeLayer(map);
         });
-      });
 
-      _.each(circles, function (circle) {
-        circle.addTo(map);
-      });
+        circles = _.map($scope.activities, function (activity) {
+          return L.circleMarker([activity.latitude, activity.longitude], {
+            fillColor: TYPE_MAPPING[activity.type],
+            fillOpacity: 1,
+            stroke: false
+          });
+        });
+
+        _.each(circles, function (circle) {
+          circle.addTo(map);
+        });
+      }, 0);
     });
   });
