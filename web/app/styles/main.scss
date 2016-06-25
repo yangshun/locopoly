@@ -1,11 +1,39 @@
 @import 'fonts';
 
+$theme-pink:   #f13d75;
+$theme-orange: #eb6642;
+$theme-yellow: #f1cb08;
+$theme-green:  #24cea9;
+$theme-blue:   #44b6ff;
+$theme-purple: #a16897;
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
 .btn {
   border: none;
+  text-transform: uppercase;
+
+  &.btn-primary {
+    background-color: $theme-blue;
+  }
+
+  &.btn-success {
+    background-color: $theme-green;
+  }
+
+  &.btn-info {
+    background-color: $theme-purple;
+  }
+
+  &.btn-warning {
+    background-color: $theme-yellow;
+  }
+
+  &.btn-danger {
+    background-color: $theme-pink;
+  }
 }
 
 $nav-font-size: 22px;
@@ -80,23 +108,23 @@ $nav-font-size: 22px;
 }
 
 .activity-type-event {
-  color: #24ceA9;
+  color: $theme-green;
 }
 
 .activity-type-games {
-  color: #f13d75;
+  color: $theme-pink;
 }
 
 .activity-type-favour {
-  color: #f1cb08;
+  color: $theme-yellow;
 }
 
 .activity-type-buying {
-  color: #eb6642;
+  color: $theme-orange;
 }
 
 .activity-type-selling {
-  color: #a16897;
+  color: $theme-purple;
 }
 
 ::-webkit-scrollbar {
@@ -136,11 +164,11 @@ $border-radius: 6px;
 
   font-weight: 700;
   float: right;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 1px;
   margin-right: $margin;
   margin-top: $margin;
-  color: #44b6ff;
+  color: $theme-blue;
 }
 
 .activity-creator {
@@ -199,6 +227,21 @@ $section-padding: 20px;
   float: left;
   height: calc(100vh - 50px);
   width: 100%;
+}
+
+.activity-page-container {
+  margin-top: 40px;
+
+  .activity-section-bounty {
+    color: $theme-blue;
+    float: right;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .activity-section-primary-row {
+    margin-top: 30px;
+  }
 }
 
 .login-page {
