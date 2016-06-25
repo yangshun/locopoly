@@ -9,31 +9,40 @@
  */
 angular.module('locopoly')
   .controller('ExploreCtrl', function ($scope, $firebaseArray) {
-    $scope.activities = {};
-    var map = L.mapbox.map('map', 'mapbox.k8xv42t9').setView([1.331892, 103.849388], 15);
+    var TYPE_MAPPING = {
+      event: '#24ceA9',
+      games: '#f13d75',
+      favour: '#f1cb08',
+      buying: '#eb6642',
+      selling: '#a16897'
+    };
+
     var ref = firebase.database().ref().child('activities');
     $scope.activities = $firebaseArray(ref);
-    ref.on('value', function (snapshot) {
-      $scope.activities = snapshot.val();
+
+    var map = L.mapbox.map('map').setView([1.331892, 103.849388], 15);
+    map.removeControl(map.zoomControl);
+    L.mapbox.styleLayer('mapbox://styles/sebastianquek/cipsbnqto0023ckngkhywj5v1').addTo(map);
+
+    var locations = L.mapbox.featureLayer().addTo(map);
+    var circles = [];
+
+    ref.on('value', function () {
       $scope.$apply();
+      _.each(circles, function (circle) {
+        circle.removeLayer(map);
+      });
 
-      var geojson = [{
-        type: 'FeatureCollection',
-        features: _.map($scope.activities, function (activity) {
-          return {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [
-                activity.longitude,
-                activity.latitude
-              ]
-            }
-          };
-        })
-      }];
+      circles = _.map($scope.activities, function (activity) {
+        return L.circleMarker([activity.latitude, activity.longitude], {
+          fillColor: TYPE_MAPPING[activity.type],
+          fillOpacity: 1,
+          stroke: false
+        });
+      });
 
-      map.featureLayer
-        .setGeoJSON(geojson);
+      _.each(circles, function (circle) {
+        circle.addTo(map);
+      });
     });
   });
