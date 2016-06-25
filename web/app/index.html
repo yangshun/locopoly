@@ -40,7 +40,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li ng-show="!!user"><a ng-href="#/activity/new">Create Activity</a></li>
               <li ng-show="!!user"><a ng-href="#/explore">Explore</a></li>
-              <li ng-show="!!user"><a ng-href="#/profile">{{user.displayName}}</a></li>
+              <li ng-show="!!user"><a ng-href="#/profile" ng-bind="user.displayName"></a></li>
               <li ng-show="!!user"><a ng-href="#/" ng-click="signOut()">Sign Out</a></li>
             </ul>
           </div>
