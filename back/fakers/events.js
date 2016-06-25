@@ -21,6 +21,7 @@ function getRandomUser(excludeName) {
     return getRandomUser(excludeName);
   }
   return {
+    uid: user.uid,
     name: user.name,
     image: user.image
   }

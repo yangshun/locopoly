@@ -14,6 +14,7 @@ function generate() {
     interests.push(tagsPool[Math.floor((Math.random() * (tagsPool.length - 1)))]);
   }
   return {
+    uid: Math.random().toString(36).substring(7),
     name: temp.name,
     email: temp.email,
     username: temp.username,
