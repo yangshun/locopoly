@@ -55,10 +55,10 @@ function generateNewEvent(count, callback) {
 }
 
 function seedAllData() {
-  generateNewUser(20, function () {
+  generateNewUser(10, function () {
     console.log("users have all been created!");
     eventFaker.setUsers(usersList);
-    generateNewEvent(40, function () {
+    generateNewEvent(15, function () {
       console.log("events have all been created!");
     })
   });
