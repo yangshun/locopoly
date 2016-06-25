@@ -1,7 +1,17 @@
-<form novalidate class="simple-form">
-  <img ng-src="{{ currentUser.photo }}"/><br />
-  Name: <input type="text" ng-model="currentUser.name" /><br />
-  E-mail: <input type="email" ng-model="currentUser.email" /><br />
-  Interests: <input type="text" ng-model="currentUser.interests" placeholder="Sports, Fashion, ..." /><br />
-  <input type="submit" ng-click="save(currentUser)" value="Save" />
-</form>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 page-container">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <form novalidate class="simple-form">
+            <img ng-src="{{ currentUser.photo }}"/><br />
+            Name: <input type="text" ng-model="currentUser.name" /><br />
+            E-mail: <input type="email" ng-model="currentUser.email" /><br />
+            Interests: <input type="text" ng-model="currentUser.interests" placeholder="Sports, Fashion, ..." /><br />
+            <input type="submit" ng-click="save(currentUser)" value="Save" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
