@@ -6,4 +6,21 @@
       <p>{{activity.address}}</p>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h1>Discuss</h1>
+      <hr/>
+      <div ng-repeat="message in messages">
+        <p>{{message.message}}</p>
+        <p>at {{message.createdAt | time}}</p>
+        <p>by {{message.author.name}}</p>
+        <hr/>
+      </div>
+      <form>
+        <textarea rows="1" class="form-control" id="message" ng-model="message.text"
+          placeholder="Enter your message here"/><br/>
+        <button class="btn btn-lg btn-primary" ng-click="sendMessage(message.text)" ng-disabled="message.text == null || message.text == ''">Send</button>
+      </form>
+    </div>
+  </div>
 </div>
