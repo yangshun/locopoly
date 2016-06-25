@@ -21,18 +21,18 @@ angular.module('locopoly')
     if (USE_FAKER) {
       var fakeDate = faker.date.future();
       $scope.activity = _.assign({}, $scope.activity, {
-        name: _.capitalize(faker.lorem.words()),
+        title: _.capitalize(faker.lorem.words()),
         description: faker.lorem.sentences(),
         address: faker.address.streetAddress(),
         type: _.sample(['games', 'event', 'buying', 'selling']),
-        creator_id : 558978353,
+        creator: 558978353,
         verified: _.sample([true, false]),
-        start_time: moment(fakeDate).add(1, 'day').format('X'),
-        end_time: moment(fakeDate).add(_.sample([2, 3, 4], 'day')).format('X'),
+        startTime: moment(fakeDate).add(1, 'day').format('X'),
+        endTime: moment(fakeDate).add(_.sample([2, 3, 4], 'day')).format('X'),
         latitude: 1.331892 + _.sample([0.01, 0.005, 0.003, -0.01, -0.005, -0.003]),  // Toa Payoh
         longitude:  103.849388 + _.sample([0.01, 0.005, 0.003, -0.01, -0.005, -0.003]), // Toa Payoh
         cost: faker.finance.amount(),
-        max_attendees: _.sample([3,5,8,13,21])
+        maxAllowed: _.sample([3,5,8,13,21])
       });
     }
 

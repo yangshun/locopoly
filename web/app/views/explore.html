@@ -2,8 +2,8 @@
   <div class="activity-list-container">
     <div class="row">
       <div class="col-md-12">
-        <div ng-repeat="(activityId, activity) in activities" class="activity-item">
-          <h3>{{activity.name}}</h3>
+        <div ng-repeat="activity in activities" class="activity-item">
+          <h3>{{activity.title}}</h3>
           <p>{{activity.description}}</p>
         </div>
       </div>
