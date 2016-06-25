@@ -127,7 +127,7 @@ function sendDataMessage(recipientId, messageData) {
   });
 }
 
-app.listen(5000);
+app.listen(80);
 
 console.log("Express listening on port 5000...");
 
