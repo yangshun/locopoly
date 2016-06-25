@@ -39,15 +39,15 @@ function generate(noAtt, noComm) {
     tags.push(tagsPool[Math.floor((Math.random() * (tagsPool.length - 1)))]);
   }
 
+  var attendance = [];
   if (!noAtt) {
-    var attendance = [];
     for (var j = 0; j < Math.floor((Math.random() * (usersPool.length - 1)) + 1); j++) {
       attendance.push(getRandomUser(creator.name));
     }
   }
 
+  var comments = [];
   if (!noComm) {
-    var comments = [];
     for (var k = 0; k < Math.floor((Math.random() * 10) + 1); k++) {
       comments.push(
           {
@@ -73,7 +73,7 @@ function generate(noAtt, noComm) {
     views: Math.floor((Math.random() * 500) + 1),
     tags: tags,
     type: typePool[Math.floor((Math.random() * 4))],
-    max_allowed: Math.floor((Math.random() * 20) + 1),
+    maxAllowed: Math.floor((Math.random() * 20) + 1),
     attendance: attendance,
     comments: comments,
     bounty: Math.floor((Math.random() * 100) + 1),

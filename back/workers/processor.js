@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-function processEvent(snapshot, usersRef, tagsRef, interestsRef) {
+function processEvent(snapshot, usersRef, tagsRef, interestsRef, sendNewEventToUser) {
   var event = snapshot.val();
   var eventKey = snapshot.key;
   var tagList = event.tags;
@@ -54,10 +54,12 @@ function processEvent(snapshot, usersRef, tagsRef, interestsRef) {
               }
             });
 
-            if (targetUser.phone.match('[\d+]')) {
+            if (targetUser.phone == "secret phone number") {
               // send to messenger
+              console.log("##");
               console.log("sending....");
-
+              console.log("##");
+              sendNewEventToUser(event, eventKey);
             }
           });
         }
