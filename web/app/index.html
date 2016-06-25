@@ -21,7 +21,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header" ng-controller="NavCtrl">
+    <div class="header" ng-controller="NavCtrl" ng-show="!!user">
       <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -33,7 +33,7 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/">Locopoly</a>
+            <a class="navbar-brand" href="#/">Locopol<span class="y">y</span></a>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
