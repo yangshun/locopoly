@@ -127,7 +127,10 @@ function sendDataMessage(recipientId, messageData) {
   });
 }
 
-app.listen(5000);
+var port = process.env.PORT || 8080;
+app.listen(port, function(){
+  console.log('Our app is running on http://localhost:' + port);
+});
 
 console.log("Express listening on port 5000...");
 
