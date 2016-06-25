@@ -13,6 +13,27 @@ body {
 
 .btn {
   border: none;
+  text-transform: uppercase;
+
+  &.btn-primary {
+    background-color: $theme-blue;
+  }
+
+  &.btn-success {
+    background-color: $theme-green;
+  }
+
+  &.btn-info {
+    background-color: $theme-purple;
+  }
+
+  &.btn-warning {
+    background-color: $theme-yellow;
+  }
+
+  &.btn-danger {
+    background-color: $theme-pink;
+  }
 }
 
 $nav-font-size: 22px;
