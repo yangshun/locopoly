@@ -1,10 +1,22 @@
-<div class="container-fluid loginbackground">
+<div class="login-page">
   <div class="row">
     <div class="col-md-6 col-md-offset-3 text-center">
-      <h1>Login</h1>
-      <hr/>
-      <p><button class="btn btn-lg btn-primary" ng-click="signIn()">Login</button></p>
-
+      <div class="logo-board">
+        <img class="green-puck" src="images/logo-green-puck.png"/>
+        <img class="orange-puck" src="images/logo-orange-puck.png"/>
+        <img class="pink-puck" src="images/logo-pink-puck.png"/>
+      </div>
+      <h1 class="login-title">Locopol<span class="y">y</span></h1>
+      <p>
+        <div class="btn-group sign-in-btn-container" role="group" ng-click="signIn()">
+          <button type="button" class="btn btn-lg btn-default sign-in-fb-btn">
+            <i class="fa fa-facebook"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-default sign-in-btn">
+            <span>Sign In</span>
+          </button>
+        </div>
+      </p>
     </div>
   </div>
 </div>
