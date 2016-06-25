@@ -1,48 +1,54 @@
-var express = require('express');
-var firebase = require('firebase');
-var config = require('./config');
+var express = require("express");
+var firebase = require("firebase");
+var request = require("request");
+var bodyParser = require("body-parser");
+var config = require("./config");
 
-var controller = require('./api/controller');
-var processor = require('./worker/processor');
+var controller = require("./api/controller");
+var processor = require("./worker/processor");
 
 
 //
 // Part one, web interface
 //
 var app = express();
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-app.get('/webhook', function(req, res) {
-  if (req.query['hub.mode'] === 'subscribe' &&
-      req.query['hub.verify_token'] === "whatever") {
+app.get("/webhook", function (req, res) {
+  if (req.query["hub.mode"] === "subscribe" && req.query["hub.verify_token"] === "whatever") {
     console.log("Validating webhook");
-    res.status(200).send(req.query['hub.challenge']);
+    res.status(200).send(req.query["hub.challenge"]);
   } else {
     console.error("Failed validation. Make sure the validation tokens match.");
     res.sendStatus(403);
   }
 });
 
-app.post('/webhook', function (req, res) {
+app.post("/webhook", function (req, res) {
   var data = req.body;
 
   // Make sure this is a page subscription
-  if (data.object == 'page') {
+  if (data.object == "page") {
     // Iterate over each entry
     // There may be multiple if batched
-    data.entry.forEach(function(pageEntry) {
+    data.entry.forEach(function (pageEntry) {
       var pageID = pageEntry.id;
       var timeOfEvent = pageEntry.time;
 
       // Iterate over each messaging event
-      pageEntry.messaging.forEach(function(messagingEvent) {
+      pageEntry.messaging.forEach(function (messagingEvent) {
+        var sender = messagingEvent.sender;
         if (messagingEvent.optin) {
-          receivedAuthentication(messagingEvent);
+          //
         } else if (messagingEvent.message) {
-          receivedMessage(messagingEvent);
+          //
+          console.log(sender, messagingEvent.message.text);
+          sendTextMessage(sender, messagingEvent.message.text)
         } else if (messagingEvent.delivery) {
-          receivedDeliveryConfirmation(messagingEvent);
+          //
         } else if (messagingEvent.postback) {
-          receivedPostback(messagingEvent);
+          //
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
         }
@@ -51,15 +57,62 @@ app.post('/webhook', function (req, res) {
 
     // Assume all went well.
     //
-    // You must send back a 200, within 20 seconds, to let us know you've
+    // You must send back a 200, within 20 seconds, to let us know you"ve
     // successfully received the callback. Otherwise, the request will time out.
     res.sendStatus(200);
   }
 });
 
+function sendTextMessage(sender, text) {
+  var messageData = {text: text};
+  request({
+    url: "https://graph.facebook.com/v2.6/me/messages",
+    qs: {access_token: config.messenger.pageAccessToken},
+    method: "POST",
+    json: {
+      recipient: {
+        id: sender.id
+      },
+      message: messageData
+    }
+  }, function (error, response, body) {
+    if (error) {
+      console.log("Error sending messages: ", error)
+    } else if (response.body.error) {
+      console.log("Error: ", response.body.error)
+    } else {
+      console.log("Message send to " + sender.id)
+    }
+  });
+}
+
+function sendTextMessageByPhone(phone, data) {
+  var messageData = {text: data};
+  request({
+    url: "https://graph.facebook.com/v2.6/me/messages",
+    qs: {access_token: config.messenger.pageAccessToken},
+    method: "POST",
+    json: {
+      recipient: {
+        phone_number: phone
+      },
+      message: messageData
+    }
+  }, function (error, response, body) {
+    if (error) {
+      console.log("Error sending messages: ", error)
+    } else if (response.body.error) {
+      console.log("Error: ", response.body.error)
+    } else {
+      console.log("Message send to " + data)
+    }
+  });
+}
+
+
 app.listen(5000);
 
-console.log('Express listening on port 5000...');
+console.log("Express listening on port 5000...");
 
 
 //
@@ -93,4 +146,4 @@ usersRef.limitToLast(1).on("child_added", function (snapshot) {
   }
 });
 
-console.log('Firebase started monitoring....');
+console.log("Firebase started monitoring....");
