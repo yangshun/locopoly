@@ -28,17 +28,32 @@ angular
       .when('/activity', {
         templateUrl: 'views/activity.html',
         controller: 'ActivityCtrl',
-        controllerAs: 'Activity'
+        controllerAs: 'Activity',
+        resolve: {
+          'currentAuth': ['Auth', function(Auth) {
+            return Auth.$requireSignIn();
+          }]
+        }
       })
       .when('/explore', {
         templateUrl: 'views/explore.html',
         controller: 'ExploreCtrl',
-        controllerAs: 'Explore'
+        controllerAs: 'Explore',
+        resolve: {
+          'currentAuth': ['Auth', function(Auth) {
+            return Auth.$requireSignIn();
+          }]
+        }
       })
       .when('/profile', {
         templateUrl: 'views/profile.html',
         controller: 'ProfileCtrl',
-        controllerAs: 'Profile'
+        controllerAs: 'Profile',
+        resolve: {
+          'currentAuth': ['Auth', function(Auth) {
+            return Auth.$requireSignIn();
+          }]
+        }
       })
       .otherwise({
         redirectTo: '/'
