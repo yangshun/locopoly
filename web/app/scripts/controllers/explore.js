@@ -11,7 +11,7 @@ angular.module('locopoly')
   .controller('ExploreCtrl', function ($scope, $firebaseArray) {
     $scope.activities = {};
     var map = L.mapbox.map('map', 'mapbox.k8xv42t9').setView([1.331892, 103.849388], 15);
-    var ref = firebase.database().ref().child('data').child('events');
+    var ref = firebase.database().ref().child('activities');
     $scope.activities = $firebaseArray(ref);
     // database.ref().child('activities').on('value', function (snapshot) {
     //   $scope.activities = snapshot.val();
