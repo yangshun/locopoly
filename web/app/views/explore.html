@@ -1,13 +1,26 @@
+<div id="map" class="map pad2"></div>
 <div class="explore-container">
   <div class="activity-list-container">
-    <div class="row">
-      <div class="col-md-12">
-        <div ng-repeat="activity in activities" class="activity-item">
-          <h3>{{activity.title}}</h3>
-          <p>{{activity.description}}</p>
+    <div class="row activity-list-row" style="width: {{activities.length * 240}}px">
+      <div ng-repeat="activity in activities" class="activity-item">
+        <span class="activity-bounty"><i class="fa fa-trophy"></i> &nbsp;{{activity.bounty}}</span>
+        <div class="activity-item-top-section">
+          <div class="activity-type activity-type-{{activity.type}}">
+            <i class="fa fa-2x fa-circle"></i> <span class="activity-type">{{activity.type}}</span>
+          </div>
+          <h3 class="activity-item-title">{{activity.name}}</h3>
+          <p class="activity-creator">
+            by {{activity.creator.name}} &nbsp;<i class="fa fa-check-circle" ng-show="activity.verified"></i>
+          </p>
+        </div>
+        <div class="activity-item-bottom-section">
+          <div>{{activity.address}}</div>
+          <div>{{activity.start_time | time}} - {{activity.end_time | time}}</div>
+        </div>
+        <div class="activity-chevron-container activity-type-{{activity.type}}">
+          <i class="fa fa-chevron-down"></i>
         </div>
       </div>
     </div>
   </div>
-  <div id="map" class="map pad2">Map</div>
 </div>
