@@ -15,13 +15,13 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="locopoly">
+  <body ng-app="locopoly" ng-controller="MainCtrl">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header" ng-controller="NavCtrl" ng-show="!!user">
+    <div class="header" ng-show="!!user">
       <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -37,6 +37,15 @@
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
+            <form class="navbar-form navbar-left" role="search">
+              <div class="form-group input-group activities-search-container">
+                <span class="input-group-addon">
+                  <i class="fa fa-lg fa-search"></i>
+                </span>
+                <input type="text" class="form-control activities-search"
+                  placeholder="Search Activities" ng-model="filterSearch">
+              </div>
+            </form>
             <ul class="nav navbar-nav navbar-right">
               <li ng-show="!!user"><a ng-href="#/activity/new">Create Activity</a></li>
               <li ng-show="!!user"><a ng-href="#/explore">Explore</a></li>
@@ -84,7 +93,7 @@
         <script src="scripts/controllers/activity.js"></script>
         <script src="scripts/controllers/explore.js"></script>
         <script src="scripts/controllers/profile.js"></script>
-        <script src="scripts/controllers/navbar.js"></script>
+        <script src="scripts/controllers/main.js"></script>
         <!-- endbuild -->
 </body>
 </html>

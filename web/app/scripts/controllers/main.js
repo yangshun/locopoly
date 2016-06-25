@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('locopoly')
-  .controller('NavCtrl', ['$scope', '$location', 'Auth',
+  .controller('MainCtrl', ['$scope', '$location', 'Auth',
     function ($scope, $location, Auth) {
       $scope.auth = Auth;
       $scope.user = null;
@@ -15,5 +15,7 @@ angular.module('locopoly')
         Auth.$signOut();
         $location.path('/')
       };
+
+      $scope.filterSearch = '';
     }
   ]);
