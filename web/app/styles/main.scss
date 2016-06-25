@@ -37,6 +37,10 @@ body {
   color: #a16897;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .activity-list-container {
   height: 100%;
   overflow-x: scroll;
