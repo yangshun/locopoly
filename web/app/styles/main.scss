@@ -10,6 +10,12 @@ body {
 
 $nav-font-size: 22px;
 
+.main-container {
+  background-image: -webkit-linear-gradient(top,  rgba(255,255,255,1) 70%,rgba(255,255,255,0) 100%), url('https://api.mapbox.com/styles/v1/sebastianquek/cipsbnqto0023ckngkhywj5v1/static/103.835403,1.290180,12.98,0.00,0.00/1200x800?access_token=pk.eyJ1Ijoic2ViYXN0aWFucXVlayIsImEiOiJjaXBzYm1peG0wMnNjZnRtMmg1dGo0enJyIn0.umExD9aqm4ctTOEp51iNPA');
+  background-size: 100% 100%, 100% auto;
+  background-position: center center, center bottom;
+}
+
 .navbar {
   border: none;
   margin-bottom: 0;
