@@ -18,6 +18,11 @@ angular
     'ngTouch',
     'firebase'
   ])
+  .filter('time', function() {
+    return function (input) {
+      return moment(parseInt(input)).format('Do MMM');
+    };
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

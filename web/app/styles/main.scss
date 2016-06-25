@@ -107,11 +107,12 @@ body {
 
   .activity-item-top-section {
     border-bottom: 1px solid #eee;
-    padding: $section-padding;
-    padding-bottom: 15px;
+    padding: 20px $section-padding;
   }
 
   .activity-item-bottom-section {
+    color: #ccc;
+    font-weight: 300;
     padding: $section-padding;
     padding-top: 15px;
   }
