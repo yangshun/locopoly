@@ -87,6 +87,7 @@ $nav-font-size: 22px;
   .activities-search {
     font-size: $nav-font-size;
     padding-left: 1px !important;
+    letter-spacing: 2px;
 
     &, &:focus {
       border: none;
@@ -304,9 +305,9 @@ $section-padding: 20px;
     height: 100%;
     opacity: 0.5;
 
-    -webkit-animation: LocoAnimation 18s linear infinite;
-    -moz-animation: LocoAnimation 18s linear infinite;
-    animation: LocoAnimation 18s linear infinite;
+    -webkit-animation: LocoAnimation 40s linear infinite;
+    -moz-animation: LocoAnimation 40s linear infinite;
+    animation: LocoAnimation 40s linear infinite;
 
     @-webkit-keyframes LocoAnimation {
       0%{background-position:4% 0%}
