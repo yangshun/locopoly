@@ -6,6 +6,7 @@ $theme-yellow: #f1cb08;
 $theme-green:  #24cea9;
 $theme-blue:   #44b6ff;
 $theme-purple: #a16897;
+$theme-gray: #aaa;
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
@@ -13,6 +14,8 @@ body {
 
 .btn {
   border: none;
+  letter-spacing: 1px;
+  min-width: 100px;
   text-transform: uppercase;
 
   &.btn-primary {
@@ -73,7 +76,7 @@ $nav-font-size: 22px;
 }
 
 .activities-search-container {
-  border-left: 1px solid #aaa;
+  border-left: 1px solid $theme-gray;
 
   .input-group-addon {
     border: none;
@@ -172,8 +175,8 @@ $border-radius: 6px;
 }
 
 .activity-creator {
-  color: #aaa;
-  font-size: 12px;
+  color: $theme-gray;
+  font-size: 14px;
   font-style: italic;
 }
 
@@ -202,7 +205,7 @@ $section-padding: 20px;
 }
 
 .activity-item-bottom-section {
-  color: #aaa;
+  color: $theme-gray;
   font-weight: 300;
   padding: $section-padding;
   padding-top: 15px;
@@ -229,6 +232,12 @@ $section-padding: 20px;
   width: 100%;
 }
 
+.user-thumbnail {
+  display: inline-block;
+  width: 36px;
+  margin-right: 5px;
+}
+
 .activity-page-container {
   margin-top: 40px;
 
@@ -241,6 +250,19 @@ $section-padding: 20px;
 
   .activity-section-primary-row {
     margin-top: 30px;
+  }
+
+  .activity-section-title {
+    margin-bottom: 5px;
+    margin-top: 0;
+  }
+
+  .activity-attendees-container {
+    color: $theme-gray;
+  }
+
+  .activity-attendees-image-container {
+    margin-bottom: 5px;
   }
 }
 
