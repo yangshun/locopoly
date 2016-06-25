@@ -21,9 +21,9 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
+    <div class="header" ng-controller="NavCtrl" ng-show="!!user">
       <div class="navbar navbar-default" role="navigation">
-        <div class="container">
+        <div class="container-fluid">
           <div class="navbar-header">
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
@@ -33,16 +33,15 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/">Locopoly</a>
+            <a class="navbar-brand" href="#/">Locopol<span class="y">y</span></a>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li><a href="#/">Login</a></li>
-              <li><a ng-href="#/activity">Activity</a></li>
-              <li><a ng-href="#/explore">Explore</a></li>
-              <li><a ng-href="#/profile">Profile</a></li>
+            <ul class="nav navbar-nav navbar-right">
+              <li ng-show="!!user"><a ng-href="#/activity/new">Create Activity</a></li>
+              <li ng-show="!!user"><a ng-href="#/explore">Explore</a></li>
+              <li ng-show="!!user"><a ng-href="#/profile">{{user.displayName}}</a></li>
+              <li ng-show="!!user"><a ng-href="#/" ng-click="signOut()">Sign Out</a></li>
             </ul>
           </div>
         </div>
@@ -81,9 +80,11 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/factories/auth.js"></script>
         <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/create_activity.js"></script>
         <script src="scripts/controllers/activity.js"></script>
         <script src="scripts/controllers/explore.js"></script>
         <script src="scripts/controllers/profile.js"></script>
+        <script src="scripts/controllers/navbar.js"></script>
         <!-- endbuild -->
 </body>
 </html>
