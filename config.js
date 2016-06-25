@@ -15,8 +15,8 @@ module.exports = {
     databaseURL: "https://locopoly-staging.firebaseio.com/"
   },
   messenger: {
-    appSecret: "8d842b4ec32061a1fce6a684eb4a483b",
+    appSecret: "355ec3d660af725541f258cc5caa2fb8",
     validationToken: "whatever",
-    pageAccessToken: "EAAI9zqjx0PUBAN85qNFQVZCDXT01FftAg3StSI1LmkU5x1zRWkk7q1UoXavYhRdDEWGfIHZAWPrZBc6B9RCXdU5LETSe57wPVKVY7DoirHsZAgy1llm4JEDYesnfFnPkHFDjqHY9kdfyommNjnIqjiVsSYDjRoXh8yE1PBUAQwZDZD"
+    pageAccessToken: "EAAZAMQLBZBTlgBALLC0tlHFzW0uwRKaMEK0MpdCaWlesWBwiNzsZCEihM9C1UgtGR2wd2qVGk8JjqxZCKLRVZCxSF9BLm04zOfWDsoVY2SCZBDlC25VFSInaoZC1cD30JRWm5syJuTLlScbKivK8FyVn6rbEfD89lnZBHjMqGvZAa3QZDZD"
   }
 };
