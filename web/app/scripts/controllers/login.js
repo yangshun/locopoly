@@ -12,6 +12,8 @@ angular.module('locopoly').controller('LoginCtrl', ['$scope', '$location', '$fir
     Auth.$onAuthStateChanged(function(user) {
       if (user.displayName) {
         $location.path('/explore');
+      } else {
+        $location.path('/');
       }
     });
 

@@ -41,6 +41,7 @@
               <li ng-show="!!user"><a ng-href="#/activity/new">Create Activity</a></li>
               <li ng-show="!!user"><a ng-href="#/explore">Explore</a></li>
               <li ng-show="!!user"><a ng-href="#/profile">{{user.displayName}}</a></li>
+              <li ng-show="!!user"><a ng-click="signOut()">Sign Out</a></li>
             </ul>
           </div>
         </div>
