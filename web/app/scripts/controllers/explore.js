@@ -9,6 +9,7 @@
  */
 angular.module('locopoly')
   .controller('ExploreCtrl', function ($scope, $firebaseArray) {
+    $scope.loaded = false;
     var TYPE_MAPPING = {
       event: '#24ceA9',
       games: '#f13d75',
@@ -29,6 +30,7 @@ angular.module('locopoly')
 
     ref.on('value', function (snapshot) {
       setTimeout(function () {
+        $scope.loaded = true;
         _.each(circles, function (circle) {
           circle.removeLayer(map);
         });

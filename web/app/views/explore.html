@@ -1,8 +1,13 @@
 <div id="map" class="map pad2"></div>
 <div class="explore-container">
   <div class="activity-list-container">
+    <div class="row" ng-show="filteredActivities.length === 0 && loaded">
+      <div class="col-md-4 col-md-offset-4 text-center">
+        <h3><em>No activities found</em></h3>
+      </div>
+    </div>
     <div class="row activity-list-row" style="width: {{activities.length * 240}}px">
-      <div ng-repeat="activity in activities" class="activity-item">
+      <div ng-repeat="activity in filteredActivities = (activities | filter: $parent.filterSearch)" class="activity-item">
         <span class="activity-bounty"><i class="fa fa-trophy"></i> &nbsp;{{activity.bounty}}</span>
         <div class="activity-item-top-section">
           <div class="activity-type activity-type-{{activity.type}}">

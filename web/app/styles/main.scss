@@ -8,10 +8,12 @@ body {
   border: none;
 }
 
+$nav-font-size: 22px;
+
 .navbar {
   border: none;
   margin-bottom: 0;
-  font-size: 22px;
+  font-size: $nav-font-size;
   letter-spacing: 2px;
 }
 
@@ -22,12 +24,33 @@ body {
 
   .navbar-brand {
     color: #000;
-    font-size: 22px;
+    font-size: $nav-font-size;
     font-weight: 700;
     margin-left: 6px;
 
     .y {
       margin-left: -2px;
+    }
+  }
+}
+
+.activities-search-container {
+  border-left: 1px solid #aaa;
+
+  .input-group-addon {
+    border: none;
+    background: none;
+    padding-left: 30px;
+  }
+
+  .activities-search {
+    font-size: $nav-font-size;
+    padding-left: 0 !important;
+
+    &, &:focus {
+      border: none;
+      box-shadow: none;
+      outline: none;
     }
   }
 }
@@ -111,7 +134,7 @@ $border-radius: 6px;
 }
 
 .activity-creator {
-  color: #ccc;
+  color: #aaa;
   font-size: 12px;
   font-style: italic;
 }
@@ -141,7 +164,7 @@ $section-padding: 20px;
 }
 
 .activity-item-bottom-section {
-  color: #ccc;
+  color: #aaa;
   font-weight: 300;
   padding: $section-padding;
   padding-top: 15px;
