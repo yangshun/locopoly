@@ -17,6 +17,10 @@ angular.module('locopoly')
       selling: '#a16897'
     };
 
+    var map = L.mapbox.map('map').setView([1.331892, 103.849388], 15);
+    L.mapbox.styleLayer('mapbox://styles/sebastianquek/cipsbnqto0023ckngkhywj5v1').addTo(map);
+    map.removeControl(map.zoomControl);
+
     var ref = firebase.database().ref().child('activities');
     $scope.activities = $firebaseArray(ref);
 
