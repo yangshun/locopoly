@@ -21,7 +21,7 @@ angular.module('locopoly')
     L.mapbox.styleLayer('mapbox://styles/sebastianquek/cipsbnqto0023ckngkhywj5v1').addTo(map);
     map.removeControl(map.zoomControl);
 
-    var ref = firebase.database().ref().child('activities');
+    var ref = firebase.database().ref().child('data').child('activities');
     $scope.activities = $firebaseArray(ref);
 
     var locations = L.mapbox.featureLayer().addTo(map);
@@ -29,8 +29,6 @@ angular.module('locopoly')
 
     ref.on('value', function (snapshot) {
       setTimeout(function () {
-        console.log(_.cloneDeep($scope.activities));
-        console.log('activities value');
         _.each(circles, function (circle) {
           circle.removeLayer(map);
         });

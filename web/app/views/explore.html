@@ -8,14 +8,14 @@
           <div class="activity-type activity-type-{{activity.type}}">
             <i class="fa fa-2x fa-circle"></i> <span class="activity-type">{{activity.type}}</span>
           </div>
-          <h3 class="activity-item-title">{{activity.name}}</h3>
+          <h3 class="activity-item-title">{{activity.title}}</h3>
           <p class="activity-creator">
             by {{activity.creator.name}} &nbsp;<i class="fa fa-check-circle" ng-show="activity.verified"></i>
           </p>
         </div>
         <div class="activity-item-bottom-section">
-          <div>{{activity.address}}</div>
-          <div>{{activity.start_time | time}} - {{activity.end_time | time}}</div>
+          <div>{{activity.description}}</div>
+          <div>{{activity.startTime | time}} - {{activity.endTime | time}}</div>
         </div>
         <div class="activity-chevron-container activity-type-{{activity.type}}">
           <i class="fa fa-chevron-down"></i>
