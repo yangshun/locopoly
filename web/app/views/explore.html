@@ -14,12 +14,13 @@
           </p>
         </div>
         <div class="activity-item-bottom-section">
-          <div>{{activity.description}}</div>
+          <div>{{activity.address}}</div>
           <div>{{activity.startTime | time}} - {{activity.endTime | time}}</div>
         </div>
-        <div class="activity-chevron-container activity-type-{{activity.type}}">
+        <a class="activity-chevron-container activity-type-{{activity.type}}"
+          ng-href="#/activity/{{activity.$id}}">
           <i class="fa fa-chevron-down"></i>
-        </div>
+        </a>
       </div>
     </div>
   </div>

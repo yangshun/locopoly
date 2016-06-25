@@ -1,3 +1,5 @@
+@import 'fonts';
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -5,6 +7,19 @@ body {
 .navbar {
   border: none;
   margin-bottom: 0;
+  font-size: 22px;
+  letter-spacing: 2px;
+}
+
+.navbar-default {
+  background-color: #fff;
+  font-family: 'Ostrich Sans', sans-serif;
+
+  .navbar-brand {
+    color: #000;
+    font-size: 22px;
+    font-weight: 700;
+  }
 }
 
 .explore-container {
@@ -141,4 +156,11 @@ body {
   float: left;
   height: calc(100vh - 50px);
   width: 100%;
+}
+
+.loginbackground {
+  background-image: url('../images/login-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: calc(100vh - 50px);
 }

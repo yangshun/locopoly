@@ -9,6 +9,12 @@
  */
 angular.module('locopoly').controller('LoginCtrl', ['$scope', '$location', '$firebaseArray', 'Auth',
   function ($scope, $location, $firebaseArray, Auth) {
+    Auth.$onAuthStateChanged(function(user) {
+      if (user.displayName) {
+        $location.path('/explore');
+      }
+    });
+
     $scope.signIn = function() {
       $scope.firebaseUser = null;
       $scope.error = null;
@@ -29,7 +35,6 @@ angular.module('locopoly').controller('LoginCtrl', ['$scope', '$location', '$fir
             interests: []
           });
         });
-        $location.path('/profile');
       }).catch(function(error) {
         $scope.error = error;
       });
