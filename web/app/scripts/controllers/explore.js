@@ -32,7 +32,7 @@ angular.module('locopoly')
       setTimeout(function () {
         $scope.loaded = true;
         _.each(circles, function (circle) {
-          circle.removeLayer(map);
+          map.removeLayer(circle);
         });
 
         circles = _.map($scope.activities, function (activity) {
