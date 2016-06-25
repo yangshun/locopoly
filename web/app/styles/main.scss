@@ -49,6 +49,7 @@ $nav-font-size: 22px;
 
 .page-container {
   background-color: #fff;
+  min-height: calc(100vh - 50px);
 }
 
 .navbar {
@@ -473,7 +474,7 @@ $section-padding: 20px;
   &:focus {
     border-color: $theme-green;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.2);
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.2);   
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.2);
   }
 }
 
@@ -525,7 +526,7 @@ input[type="file"]:focus {
       color: #888;
       margin-bottom: 10px;
     }
-    .profile-personal-info { 
+    .profile-personal-info {
       * {
         padding-bottom: 4px;
       }
