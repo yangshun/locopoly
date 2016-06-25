@@ -9,6 +9,12 @@
  */
 angular.module('locopoly').controller('LoginCtrl', ['$scope', '$location', 'Auth',
   function ($scope, $location, Auth) {
+    Auth.$onAuthStateChanged(function(user) {
+      if (user.displayName) {
+        $location.path('/explore');
+      }
+    });
+
     $scope.signIn = function() {
       $scope.firebaseUser = null;
       $scope.error = null;
