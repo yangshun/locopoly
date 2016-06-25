@@ -1,15 +1,47 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-md-offset-1 page-container">
+    <div class="col-sm-6 col-sm-offset-3 page-container profile-container">
       <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-          <form novalidate class="simple-form">
-            <img ng-src="{{ currentUser.photo }}"/><br />
-            Name: <input type="text" ng-model="currentUser.name" /><br />
-            E-mail: <input type="email" ng-model="currentUser.email" /><br />
-            Interests: <input type="text" ng-model="currentUser.interests" placeholder="Sports, Fashion, ..." /><br />
-            <input type="submit" ng-click="save(currentUser)" value="Save" />
-          </form>
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+              <img class="profile-pic center-block" ng-src="{{ currentUser.photo }}"/>
+              <h2 class="profile-name center-block">{{currentUser.name}}</h2>
+              <div class="profile-stats center-block">
+                <i class="fa fa-trophy"></i> <span>58123<span class="stats-label"> points / </span>3<span class="stats-label"> activities</span></span>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="bottom-section">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="section-header profile-personal-info">
+                  <!--<span ng-if="currentUser.phone"><i class="fa fa-phone"></i> <span>{{currentUser.phone}}</span></span>
+                  <span ng-if="currentUser.email"><i class="fa fa-envelope"></i> <span>{{currentUser.email}}</span></span>
+                  <span ng-if="currentUser.address"><i class="fa fa-home"></i> <span>{{currentUser.address}}</span></span>-->
+                  <div class="sub-header">Contact</div>
+                  <div>
+                    <i class="fa fa-phone"></i> <span>9637 8218</span>  
+                  </div>
+                  <div>
+                    <i class="fa fa-envelope"></i> <span>sebastian@u.nus.edu</span>
+                  </div>
+                  <div>
+                    <i class="fa fa-home"></i> <span>123 Computing Dr S123456</span>
+                  </div>
+                </div>
+
+                <div class="section-header profile-interests">
+                  <div class="sub-header">Interests</div>
+                </div>
+
+                <div class="section-header profile-activity">
+                  <div class="sub-header">Participated activities</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
