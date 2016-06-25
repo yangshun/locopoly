@@ -142,3 +142,10 @@ body {
   height: calc(100vh - 50px);
   width: 100%;
 }
+
+.loginbackground {
+  background-image: url('../images/login-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: calc(100vh - 50px);
+}
