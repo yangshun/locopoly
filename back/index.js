@@ -1,12 +1,29 @@
+var _ = require('lodash');
 var express = require("express");
 var firebase = require("firebase");
 var request = require("request");
 var bodyParser = require("body-parser");
 var config = require("./config");
 
-var controller = require("./api/controller");
-var processor = require("./worker/processor");
+var processor = require("./workers/processor");
 
+var firebaseApp = firebase.initializeApp(config.firebase);
+var database = firebaseApp.database();
+
+var usersRef = database.ref("data/users");
+var eventsRef = database.ref("data/activities");
+var tagsRef = database.ref("data/tags");
+var interestsRef = database.ref("data/interests");
+
+var globalDebugUserId;
+var eventCache = {};
+var globalDebugUser = {
+  key: "whatever",
+  data: {
+    name: "Laila Torphy",
+    image: "http://graph.facebook.com/558978353/picture?type=square"
+  }
+};
 
 //
 // Part one, web interface
@@ -38,17 +55,42 @@ app.post("/webhook", function (req, res) {
 
       // Iterate over each messaging event
       pageEntry.messaging.forEach(function (messagingEvent) {
-        var sender = messagingEvent.sender;
+        var senderId = messagingEvent.sender.id;
+        globalDebugUserId = senderId;
         if (messagingEvent.optin) {
           //
         } else if (messagingEvent.message) {
           //
-          console.log(sender, messagingEvent.message.text);
-          sendTextMessage(sender, messagingEvent.message.text)
+          console.log("sender: " + senderId, messagingEvent.message.text);
+          sendDataMessage(senderId, {text: messagingEvent.message.text});
         } else if (messagingEvent.delivery) {
           //
         } else if (messagingEvent.postback) {
-          //
+          var parsedBack = JSON.parse(messagingEvent.postback.payload);
+          if (parsedBack.type === "attend") {
+            eventsRef.child(parsedBack.key).once("value", function (snapshot) {
+              if (snapshot.exists()) {
+                var attendanceRef = snapshot.child("attendance");
+                var user = globalDebugUser.data;
+                var attendanceList = attendanceRef.val();
+                if(!_.isArray(attendanceList)){
+                  attendanceList = [];
+                }
+                attendanceList.push(user);
+                attendanceRef.ref.set(attendanceList);
+              }
+            });
+            sendDataMessage(senderId, {text: "Thank you for your participating."});
+          } else if (parsedBack.type === "like") {
+            eventsRef.child(parsedBack.key).once("value", function (snapshot) {
+              if (snapshot.exists()) {
+                var likesRef = snapshot.child("likes");
+                var likes = likesRef.val();
+                likesRef.ref.set(likes + 1);
+              }
+            });
+            sendDataMessage(senderId, {text: "Thank you for your participating."});
+          }
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
         }
@@ -63,15 +105,14 @@ app.post("/webhook", function (req, res) {
   }
 });
 
-function sendTextMessage(sender, text) {
-  var messageData = {text: text};
+function sendDataMessage(recipientId, messageData) {
   request({
     url: "https://graph.facebook.com/v2.6/me/messages",
     qs: {access_token: config.messenger.pageAccessToken},
     method: "POST",
     json: {
       recipient: {
-        id: sender.id
+        id: recipientId
       },
       message: messageData
     }
@@ -81,57 +122,66 @@ function sendTextMessage(sender, text) {
     } else if (response.body.error) {
       console.log("Error: ", response.body.error)
     } else {
-      console.log("Message send to " + sender.id)
+      console.log("Message send to " + recipientId)
     }
   });
 }
-
-function sendTextMessageByPhone(phone, data) {
-  var messageData = {text: data};
-  request({
-    url: "https://graph.facebook.com/v2.6/me/messages",
-    qs: {access_token: config.messenger.pageAccessToken},
-    method: "POST",
-    json: {
-      recipient: {
-        phone_number: phone
-      },
-      message: messageData
-    }
-  }, function (error, response, body) {
-    if (error) {
-      console.log("Error sending messages: ", error)
-    } else if (response.body.error) {
-      console.log("Error: ", response.body.error)
-    } else {
-      console.log("Message send to " + data)
-    }
-  });
-}
-
 
 app.listen(5000);
 
 console.log("Express listening on port 5000...");
 
+function sendNewEventToUser(newEvent, eventKey) {
+  if (!globalDebugUserId) {
+    return console.log("!!globalDebugUserId not set!!");
+  }
+  var messageData = {
+    attachment: {
+      type: "template",
+      payload: {
+        template_type: "generic",
+        elements: [
+          {
+            title: newEvent.title,
+            image_url: newEvent.image,
+            subtitle: newEvent.description,
+            buttons: [
+              {
+                type: "web_url",
+                url: "https://github.com/yangshun/locopoly",
+                title: "Check details"
+              },
+              {
+                type: "postback",
+                title: "Like",
+                payload: JSON.stringify({type: "like", key: eventKey})
+              },
+              {
+                type: "postback",
+                title: "Attend",
+                payload: JSON.stringify({type: "attend", key: eventKey})
+              }
+            ]
+          }
+        ]
+      }
+    }
+  };
+
+  eventCache[eventKey] = newEvent;
+  sendDataMessage(globalDebugUserId, messageData);
+}
 
 //
 // Part two, monitoring firebase
 //
-var firebaseApp = firebase.initializeApp(config.firebase);
-var database = firebaseApp.database();
-
-var usersRef = database.ref("data/users");
-var eventsRef = database.ref("data/events");
-var tagsRef = database.ref("data/tags");
-var interestsRef = database.ref("data/interests");
 
 eventsRef.limitToLast(1).on("child_added", function (snapshot) {
   var data = snapshot.val();
   if (!data.processed) {
     console.log("\n============================");
     console.log("start processing new message created at " + new Date(data.createdAt));
-    processor.processEvent(snapshot, usersRef, tagsRef, interestsRef);
+    processor.processEvent(snapshot, usersRef, tagsRef, interestsRef, sendNewEventToUser);
     console.log("done processing");
   }
 });
@@ -147,3 +197,11 @@ usersRef.limitToLast(1).on("child_added", function (snapshot) {
 });
 
 console.log("Firebase started monitoring....");
+
+globalDebugUserId = 1201913199842425;
+//sendNewEventToUser({
+//  title: "sdasdad",
+//  image: "https://iranotes.files.wordpress.com/2013/12/teletubbies-wallpapers-teletubbies-34291311-1024-768.jpg",
+//  description: "asdasd asdas dasdads"
+//}, "-KL3OU-l-AdTfATLXwVj");
+

@@ -24,7 +24,26 @@ function generate() {
   }
 }
 
+function generateMasterUser() {
+  var temp = faker.helpers.createCard();
+
+  var interests = [];
+  for (var i = 0; i < Math.floor((Math.random() * 6) + 1); i++) {
+    interests.push(tagsPool[Math.floor((Math.random() * (tagsPool.length - 1)))]);
+  }
+  return {
+    name: temp.name,
+    email: temp.email,
+    username: temp.username,
+    address: temp.address,
+    phone: "secret phone number",
+    image: "http://graph.facebook.com/558978353/picture?type=square",
+    interests: interests
+  }
+}
+
 module.exports = {
   generate: generate,
+  generateMasterUser: generateMasterUser,
   setTags: setTags
 };

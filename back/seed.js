@@ -5,8 +5,8 @@ var config = require('./config');
 var firebaseApp = firebase.initializeApp(config.firebase);
 var database = firebaseApp.database();
 
-var userFaker = require('./faker/users');
-var eventFaker = require('./faker/events');
+var userFaker = require('./fakers/users');
+var eventFaker = require('./fakers/events');
 
 //
 var tagsPool = [
@@ -15,7 +15,7 @@ var tagsPool = [
 ];
 
 var usersRef = database.ref("data/users");
-var eventsRef = database.ref("data/events");
+var eventsRef = database.ref("data/activities");
 
 var usersList = [];
 userFaker.setTags(tagsPool);
@@ -23,7 +23,13 @@ eventFaker.setTags(tagsPool);
 
 function generateNewUser(count, callback) {
   if (count == 0) {
-    callback();
+    var masterUser = userFaker.generateMasterUser();
+    var newMasterRef = usersRef.push();
+    newMasterRef.set(masterUser, function () {
+      console.log("users " + count + ". have been created!");
+      setTimeout(callback, 1200);
+    });
+    usersList.push(masterUser);
     return true;
   }
   var user = userFaker.generate();
@@ -32,13 +38,12 @@ function generateNewUser(count, callback) {
     console.log("users " + count + ". have been created!");
     setTimeout(generateNewUser, 1200, count - 1, callback);
   });
-  //console.log(user);
-  // cache the data
   usersList.push(user);
 }
 
 function generateNewEvent(count, callback) {
   if (count == 0) {
+
     callback();
     return true;
   }
@@ -60,13 +65,15 @@ function seedAllData() {
 }
 
 function addNewEvents() {
-  usersRef.on("value", function (snapshot) {
+  usersRef.once("value", function (snapshot) {
     data = _.values(snapshot.val());
-    eventFaker.setTags(tagsPool);
-    eventFaker.setUsers(data);
-    var event = eventFaker.generate(true, true);
-    //console.log(event);
-    eventsRef.push().set(event);
+    if (_.isArray(data)) {
+      console.log("create a event...");
+      eventFaker.setTags(tagsPool);
+      eventFaker.setUsers(data);
+      var event = eventFaker.generate(true, true);
+      eventsRef.push().set(event);
+    }
   });
 }
 
