@@ -16,17 +16,17 @@
                 by {{activity.creator.name}} &nbsp;<i class="fa fa-check-circle" ng-show="activity.verified"></i>
               </p>
             </div>
-            <div class="col-md-4 text-right activity-attendees-container" ng-init="numFaces = 3">
-              <div class="activity-attendees-image-container">
+            <div class="col-md-4 text-right activity-attendees-container" ng-init="numFaces = 3" >
+              <div class="activity-attendees-image-container" ng-if="activity.type !== 'favour'" >
                 <img class="img-circle user-thumbnail" ng-src="{{attendee.image}}" ng-repeat="attendee in activity.attendance | limitTo: 3"/>
               </div>
-              <div ng-show="activity.attendance.length > numFaces">
+              <div ng-show="activity.attendance.length > numFaces" ng-if="activity.type !== 'favour'" >
                 <em>and {{activity.attendance.length - numFaces}} other neighbour{{{
                   true: 's are',
                   false: ' is'
                 }[activity.attendance.length - numFaces > 1]}} going</em>
               </div>
-              <div ng-show="activity.attendance.length <= numFaces">
+              <div ng-show="activity.attendance.length <= numFaces" ng-if="activity.type !== 'favour'" >
                 {{activity.attendance.length}} neighbour{{{
                   true: 's are',
                   false: ' is'
@@ -34,7 +34,8 @@
               </div>
             </div>
             <div class="col-md-2 text-right">
-              <button class="btn btn-success">Join</button>
+              <button ng-if="activity.type !== 'favour'" class="btn btn-success" ng-click="addAttendee()">Join</button>
+              <button ng-if="activity.type === 'favour'" class="btn btn-success">Help</button>
             </div>
           </div>
           <div class="activity-details">

@@ -73,4 +73,16 @@ angular.module('locopoly')
       commentsRef.update(updates);
       $scope.comment.text = '';
     };
+    $scope.addAttendee = function() {
+      var ref = firebase.database().ref().child('data').child('activities').child($routeParams.activityId).child('attendance');
+      var key = ref.push().key;
+      var attendee = {
+        uid: currentAuth.uid,
+        name: currentAuth.displayName,
+        image: currentAuth.photoURL
+      };
+      var updates = {};
+      updates[key] = attendee;
+      ref.update(updates);
+    };
   });
