@@ -335,12 +335,20 @@ $section-padding: 20px;
   }
 
   .activity-subsection-title {
-    @extend %subheader 
+    @extend %subheader
   }
 
   #activity-map {
     width: 100%;
     height: 500px;
+  }
+
+  .activity-comment {
+    margin-bottom: 20px;
+  }
+
+  .activity-comment-message {
+    color: #888;
   }
 }
 

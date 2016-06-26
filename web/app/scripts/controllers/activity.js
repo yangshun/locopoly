@@ -49,16 +49,16 @@ angular.module('locopoly')
       marker.addTo(map);
     });
 
-    var orderedMessagesRef = ref.child('comments').orderByChild('createdAt');
-    $scope.messages = $firebaseArray(orderedMessagesRef);
+    var orderedCommentsRef = ref.child('comments').orderByChild('createdAt');
+    $scope.comments = $firebaseArray(orderedCommentsRef);
 
-    var messagesRef = ref.child('comments');
+    var commentsRef = ref.child('comments');
 
-    $scope.message = {
+    $scope.comment = {
       text: ''
     };
-    $scope.sendMessage = function(text) {
-      var newMessageKey = messagesRef.push().key
+    $scope.sendComment = function(text) {
+      var newMessageKey = commentsRef.push().key
       var message = {
         message: text,
         createdAt: Date.now(),
@@ -70,7 +70,7 @@ angular.module('locopoly')
       };
       var updates = {};
       updates[newMessageKey] = message;
-      messagesRef.update(updates);
-      $scope.message.text = '';
+      commentsRef.update(updates);
+      $scope.comment.text = '';
     };
   });
