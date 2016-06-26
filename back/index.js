@@ -80,7 +80,7 @@ app.post("/webhook", function (req, res) {
                 attendanceRef.ref.set(attendanceList);
               }
             });
-            sendDataMessage(senderId, {text: "Thank you for your participating."});
+            sendDataMessage(senderId, {text: "Your attendance has been recorded. Thank you for your participation!"});
           } else if (parsedBack.type === "like") {
             eventsRef.child(parsedBack.key).once("value", function (snapshot) {
               if (snapshot.exists()) {
@@ -89,7 +89,7 @@ app.post("/webhook", function (req, res) {
                 likesRef.ref.set(likes + 1);
               }
             });
-            sendDataMessage(senderId, {text: "Thank you for your participating."});
+            sendDataMessage(senderId, {text: "You have liked the event. Thank you!"});
           }
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);

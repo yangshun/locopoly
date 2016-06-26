@@ -14,7 +14,9 @@ angular.module('locopoly').controller('ProfileCtrl', ['$scope', 'currentAuth',
       name: currentAuth.displayName,
       email: currentAuth.email,
       photo: currentAuth.photoURL,
-      interests: ''
+      phone: '8522 2989',
+      address: '190 Toa Payoh Central',
+      interests: ['Yoga', 'Basketball', 'Baking', 'Jogging', 'Soccer', 'Programming']
     };
     $scope.save = function(user) {
       console.log(user);

@@ -8,39 +8,81 @@
  * Controller of the locopoly
  */
 angular.module('locopoly')
-  .controller('ActivityCtrl', function ($scope) {
-    var defaultActivity = {
-      current_attendees: 0,
-      impressions: 0,
-      hearts: 0
+  .controller('ActivityCtrl', function ($scope, $firebaseObject, $firebaseArray, $routeParams, currentAuth) {
+    var ref = firebase.database().ref().child('data').child('activities').child($routeParams.activityId);
+    $scope.activity = $firebaseObject(ref);
+    var TYPE_MAPPING = {
+      event: '#24ceA9',
+      games: '#f13d75',
+      favour: '#f1cb08',
+      buying: '#eb6642',
+      selling: '#a16897'
     };
 
-    $scope.activity = _.assign({}, defaultActivity);
-
-    var USE_FAKER = true;
-    if (USE_FAKER) {
-      var fakeDate = faker.date.future();
-      $scope.activity = _.assign({}, $scope.activity, {
-        title: _.capitalize(faker.lorem.words()),
-        description: faker.lorem.sentences(),
-        address: faker.address.streetAddress(),
-        type: _.sample(['games', 'event', 'buying', 'selling']),
-        creator: 558978353,
-        verified: _.sample([true, false]),
-        startTime: moment(fakeDate).add(1, 'day').format('X'),
-        endTime: moment(fakeDate).add(_.sample([2, 3, 4], 'day')).format('X'),
-        latitude: 1.331892 + _.sample([0.01, 0.005, 0.003, -0.01, -0.005, -0.003]),  // Toa Payoh
-        longitude:  103.849388 + _.sample([0.01, 0.005, 0.003, -0.01, -0.005, -0.003]), // Toa Payoh
-        cost: faker.finance.amount(),
-        maxAllowed: _.sample([3,5,8,13,21])
+    var circle = null;
+    var map = L.mapbox.map('activity-map').setView([1.333092, 103.850388], 18);
+    L.mapbox.styleLayer('mapbox://styles/sebastianquek/cipsbnqto0023ckngkhywj5v1').addTo(map);
+    map.removeControl(map.zoomControl);
+    ref.on('value', function (snapshot) {
+      var activity = snapshot.val();
+      if (circle) {
+        map.removeLayer(circle);
+      }
+      circle = L.circleMarker([activity.latitude, activity.longitude], {
+        fillColor: TYPE_MAPPING[activity.type],
+        fillOpacity: 1,
+        stroke: false
       });
-    }
 
-    $scope.addActivity = function () {
-      var newActivityKey = database.ref().child('activities').push().key;
+      map.setView([activity.latitude, activity.longitude]);
+      var marker = L.marker([activity.latitude, activity.longitude], {
+        icon: L.divIcon({
+          iconSize: [30, 30],
+          iconAnchor: [15, 15],
+          popupAnchor: [0, 0],
+          shadowSize: [0, 0],
+          className: 'animated-circle activity-type-background-' + activity.type
+        })
+      });
+
+      circle.addTo(map);
+      marker.addTo(map);
+    });
+
+    var orderedCommentsRef = ref.child('comments').orderByChild('createdAt');
+    $scope.comments = $firebaseArray(orderedCommentsRef);
+
+    var commentsRef = ref.child('comments');
+
+    $scope.comment = {
+      text: ''
+    };
+    $scope.sendComment = function(text) {
+      var newMessageKey = commentsRef.push().key
+      var message = {
+        message: text,
+        createdAt: Date.now(),
+        author: {
+          uid: currentAuth.uid,
+          name: currentAuth.displayName,
+          image: currentAuth.photoURL
+        }
+      };
       var updates = {};
-      updates['/activities/' + newActivityKey] = $scope.activity;
-      database.ref().update(updates);
-      $scope.activity = _.assign({}, defaultActivity);
+      updates[newMessageKey] = message;
+      commentsRef.update(updates);
+      $scope.comment.text = '';
+    };
+    $scope.addAttendee = function() {
+      var ref = firebase.database().ref().child('data').child('activities').child($routeParams.activityId).child('attendance');
+      var key = ref.push().key;
+      var attendee = {
+        uid: currentAuth.uid,
+        name: currentAuth.displayName,
+        image: currentAuth.photoURL
+      };
+      var updates = {};
+      updates[key] = attendee;
+      ref.update(updates);
     };
   });

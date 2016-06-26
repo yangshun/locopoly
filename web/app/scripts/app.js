@@ -16,11 +16,17 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'firebase'
+    'firebase',
+    'ngTagsInput'
   ])
   .filter('time', function() {
     return function (input) {
       return moment(parseInt(input)).format('Do MMM');
+    };
+  })
+  .filter('time_long', function() {
+    return function (input) {
+      return moment(parseInt(input)).format('h:mm a, Do MMM');
     };
   })
   .config(function ($routeProvider) {
@@ -30,12 +36,22 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'Login'
       })
-      .when('/activity', {
+      .when('/activity/new', {
+        templateUrl: 'views/create_activity.html',
+        controller: 'CreateActivityCtrl',
+        controllerAs: 'CreateActivity',
+        resolve: {
+          currentAuth: ['Auth', function(Auth) {
+            return Auth.$requireSignIn();
+          }]
+        }
+      })
+      .when('/activity/:activityId', {
         templateUrl: 'views/activity.html',
         controller: 'ActivityCtrl',
         controllerAs: 'Activity',
         resolve: {
-          'currentAuth': ['Auth', function(Auth) {
+          currentAuth: ['Auth', function(Auth) {
             return Auth.$requireSignIn();
           }]
         }
@@ -45,7 +61,7 @@ angular
         controller: 'ExploreCtrl',
         controllerAs: 'Explore',
         resolve: {
-          'currentAuth': ['Auth', function(Auth) {
+          currentAuth: ['Auth', function(Auth) {
             return Auth.$requireSignIn();
           }]
         }
@@ -55,7 +71,7 @@ angular
         controller: 'ProfileCtrl',
         controllerAs: 'Profile',
         resolve: {
-          'currentAuth': ['Auth', function(Auth) {
+          currentAuth: ['Auth', function(Auth) {
             return Auth.$requireSignIn();
           }]
         }

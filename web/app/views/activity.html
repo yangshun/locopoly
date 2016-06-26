@@ -1,49 +1,88 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <h1>Create Activity</h1>
-      <hr/>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" ng-model="activity.name"
-          placeholder="E.g. 3D2N trip to Batam"/>
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea rows="5" class="form-control" id="description" ng-model="activity.description"
-          placeholder="Awesome stuff!"/>
-      </div>
-      <div class="form-group">
-        <label for="address">Address</label>
-        <input type="text" class="form-control" id="address" ng-model="activity.address"
-          placeholder="E.g. Batam!"/>
-      </div>
-      <div class="form-group">
-        <label for="type">Type</label>
-        <select class="form-control" id="type" ng-model="activity.type">
-          <option value="games">Games</option>
-          <option value="event">Event</option>
-          <option value="buying">Buying</option>
-          <option value="selling">Selling</option>
-        </select>
-      </div>
+    <div class="col-md-10 col-md-offset-1 page-container activity-page-container">
       <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="latitude">Latitude</label>
-            <input type="text" class="form-control" id="latitude" ng-model="activity.latitude"
-              placeholder="1.304862"/>
+        <div class="col-md-10 col-md-offset-1">
+          <div>
+            <span class="activity-section-bounty"><i class="fa fa-trophy"></i> &nbsp;{{activity.bounty}}</span>
+            <div class="activity-type activity-type-{{activity.type}}">
+              <i class="fa fa-3x fa-circle"></i> <span class="activity-type">{{activity.type}}</span>
+            </div>
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="longitude">Longitude</label>
-            <input type="text" class="form-control" id="longitude" ng-model="activity.longitude"
-              placeholder="103.850654"/>
+          <div class="row activity-section-primary-row">
+            <div class="col-md-6">
+              <h1 class="activity-section-title">{{activity.title}}</h1>
+              <p class="activity-creator">
+                by {{activity.creator.name}} &nbsp;<i class="fa fa-check-circle" ng-show="activity.verified"></i>
+              </p>
+            </div>
+            <div class="col-md-4 text-right activity-attendees-container" ng-init="numFaces = 3" >
+              <div class="activity-attendees-image-container" ng-if="activity.type !== 'favour'" >
+                <img class="img-circle user-thumbnail" ng-src="{{attendee.image}}" ng-repeat="attendee in activity.attendance | limitTo: 3"/>
+              </div>
+              <div ng-show="activity.attendance.length > numFaces" ng-if="activity.type !== 'favour'" >
+                <em>and {{activity.attendance.length - numFaces}} other neighbour{{{
+                  true: 's are',
+                  false: ' is'
+                }[activity.attendance.length - numFaces > 1]}} going</em>
+              </div>
+              <div ng-show="activity.attendance.length <= numFaces" ng-if="activity.type !== 'favour'" >
+                {{activity.attendance.length}} neighbour{{{
+                  true: 's are',
+                  false: ' is'
+                }[activity.attendance.length > 1]}} going</em>
+              </div>
+            </div>
+            <div class="col-md-2 text-right">
+              <button ng-if="activity.type !== 'favour'" class="btn btn-success" ng-click="addAttendee()">Join</button>
+              <button ng-if="activity.type === 'favour'" class="btn btn-success">Help</button>
+            </div>
+          </div>
+          <div class="activity-details">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="activity-subsection">
+                  <h3 class="activity-subsection-title">Venue, Date and Time</h3>
+                  <p>{{activity.address}}</p>
+                  <p>{{activity.startTime | time}} - {{activity.endTime | time}}</p>
+                </div>
+                <div class="activity-subsection">
+                  <h3 class="activity-subsection-title">Description</h3>
+                  <p>{{activity.description}}</p>
+                </div>
+                <div class="activity-subsection">
+                  <h3 class="activity-subsection-title">Photographs</h3>
+                  <div class="row">
+                    <div class="col-md-8">
+                      <img class="img-responsive" ng-src="{{activity.image}}"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div id="activity-map"></div>
+              </div>
+            </div>
+          </div>
+          <div class="activity-subsection">
+            <h3 class="activity-subsection-title">Discuss</h3>
+            <div ng-repeat="comment in comments" class="activity-comment row">
+              <div class="col-md-1">
+                <img class="img-circle user-thumbnail pull-left" ng-src="{{comment.author.image}}"/>
+              </div>
+              <div class="col-md-11">
+                <p><strong>{{comment.author.name}}</strong>&nbsp; <span class="activity-comment-message">{{comment.message}}</span></p>
+                <p>{{comment.createdAt | time_long}}</p>
+              </div>
+            </div>
+            <form>
+              <textarea rows="3" class="form-control" id="message" ng-model="comment.text"
+                placeholder="Enter your comment here"/><br/>
+              <button class="btn btn-lg btn-primary" ng-click="sendComment(comment.text)" ng-disabled="comment.text == null || comment.text == ''">Send</button>
+            </form>
           </div>
         </div>
       </div>
-      <p><button class="btn btn-lg btn-primary" ng-click="addActivity()">Create</button></p>
     </div>
   </div>
 </div>

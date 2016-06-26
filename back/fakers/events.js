@@ -1,7 +1,7 @@
 var faker = require('faker');
 
 var baseLocation = [1.332092, 103.847100];
-var typePool = ["games", "event", "buying", "selling"];
+var typePool = ["games", "event", "buying", "selling", "favour"];
 
 var tagsPool = [];
 
@@ -21,6 +21,7 @@ function getRandomUser(excludeName) {
     return getRandomUser(excludeName);
   }
   return {
+    uid: user.uid,
     name: user.name,
     image: user.image
   }
@@ -53,7 +54,7 @@ function generate(noAtt, noComm) {
           {
             author: getRandomUser(),
             message: faker.lorem.sentence(),
-            createdAt: faker.date.recent()
+            createdAt: faker.date.recent().getTime()
           });
     }
   }
@@ -73,7 +74,7 @@ function generate(noAtt, noComm) {
     likes: Math.floor((Math.random() * 50) + 1),
     views: Math.floor((Math.random() * 500) + 1),
     tags: tags,
-    type: typePool[Math.floor((Math.random() * 4))],
+    type: typePool[Math.floor((Math.random() * 5))],
     maxAllowed: Math.floor((Math.random() * 20) + 1),
     attendance: attendance,
     comments: comments,
