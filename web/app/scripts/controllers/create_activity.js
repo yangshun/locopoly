@@ -10,7 +10,7 @@
 /*
 */
 angular.module('locopoly')
-  .controller('CreateActivityCtrl', function ($scope, currentAuth) {
+  .controller('CreateActivityCtrl', function ($scope, $location, currentAuth) {
     var defaultActivity = {
       views: 0,
       likes: 0,
@@ -24,31 +24,33 @@ angular.module('locopoly')
     if (USE_FAKER) {
       var fakeDate = faker.date.future();
       $scope.activity = _.assign({}, $scope.activity, {
-        title: _.capitalize(faker.lorem.words()),
-        description: faker.lorem.sentences(),
-        address: faker.address.streetAddress(),
-        type: _.sample(['games', 'event', 'buying', 'selling']),
+        title: 'HDB Cool Ideas Hack',
+        description: 'Singapore’s vision for our future is indeed ambitious. We’re becoming the world’s first Smart Nation that provides opportunities for all and creates the conditions for a caring and gracious society, whilst doing so in a sustainable manner in our built environment.',
+        address: 'Toa Payoh HDB Hub',
+        type: 'event',
         creator: {
           uid: currentAuth.uid,
           name: currentAuth.displayName,
           image: currentAuth.photoURL
         },
-        verified: _.sample([true, false]),
-        startTime: moment(fakeDate).add(1, 'day').format('X'),
-        endTime: moment(fakeDate).add(_.sample([2, 3, 4], 'day')).format('X'),
-        latitude: 1.331892 + _.sample([0.01, 0.005, 0.003, -0.01, -0.005, -0.003]),  // Toa Payoh
-        longitude:  103.849388 + _.sample([0.01, 0.005, 0.003, -0.01, -0.005, -0.003]), // Toa Payoh
-        cost: faker.finance.amount(),
-        maxAllowed: _.sample([3,5,8,13,21]),
-        bounty: _.sample([3,5,8,13,21])
+        verified: false,
+        startTime: moment(new Date()).subtract(2, 'day').format('X'),
+        endTime: moment(new Date()).format('X'),
+        latitude: 1.333030,
+        longitude:  103.848182,
+        cost: 15,
+        maxAllowed: 100,
+        bounty: 10
       });
     }
 
     $scope.addActivity = function () {
-      var newActivityKey = database.ref().child('activities').push().key;
+      var activityRef = firebase.database().ref().child('data').child('activities');
+      var newActivityKey = activityRef.push().key;
       var updates = {};
-      updates['/activities/' + newActivityKey] = $scope.activity;
-      database.ref().update(updates);
+      updates[newActivityKey] = $scope.activity;
+      activityRef.update(updates);
       $scope.activity = _.assign({}, defaultActivity);
+      $location.path('/explore');
     };
   });
