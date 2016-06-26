@@ -17,10 +17,13 @@ angular.module('locopoly')
       buying: '#eb6642',
       selling: '#a16897'
     };
-
-    var map = L.mapbox.map('map').setView([1.333092, 103.850388], 17);
+    var currentLocation = [1.3320410607812756, 103.84692311797335];
+    var mapCenter = [1.3331726468496001,103.84689093146517];
+    var map = L.mapbox.map('map').setView(mapCenter, 17);
     L.mapbox.styleLayer('mapbox://styles/sebastianquek/cipsbnqto0023ckngkhywj5v1').addTo(map);
     map.removeControl(map.zoomControl);
+
+    L.marker(currentLocation).addTo(map); // current location
 
     var ref = firebase.database().ref().child('data').child('activities');
     $scope.activities = $firebaseArray(ref);
