@@ -22,18 +22,19 @@
                   <span ng-if="currentUser.address"><i class="fa fa-home"></i> <span>{{currentUser.address}}</span></span>-->
                   <h3 class="profile-subsection-title">Contact</h3>
                   <div>
-                    <i class="fa fa-phone"></i> <span>9637 8218</span>  
+                    <i class="fa fa-phone"></i> <span>{{currentUser.phone}}</span>
                   </div>
                   <div>
-                    <i class="fa fa-envelope"></i> <span>sebastian@u.nus.edu</span>
+                    <i class="fa fa-envelope"></i> <span>{{currentUser.email}}</span>
                   </div>
                   <div>
-                    <i class="fa fa-home"></i> <span>123 Computing Dr S123456</span>
+                    <i class="fa fa-home"></i> <span>{{currentUser.address}}</span>
                   </div>
                 </div>
 
                 <div class="profile-section profile-interests">
                   <h3 class="profile-subsection-title">Interests</h3>
+                  <p><span ng-repeat="interest in currentUser.interests">{{interest + "\t"}}</span></p>
                 </div>
 
                 <div class="profile-section profile-activity">
