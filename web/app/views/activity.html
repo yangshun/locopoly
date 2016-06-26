@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-4 text-right activity-attendees-container" ng-init="numFaces = 3">
               <div class="activity-attendees-image-container">
-                <img class="img-circle user-thumbnail" ng-src="{{attendee.image}}" ng-repeat="attendee in activity.attendance | limitTo: 3">
+                <img class="img-circle user-thumbnail" ng-src="{{attendee.image}}" ng-repeat="attendee in activity.attendance | limitTo: 3"/>
               </div>
               <div ng-show="activity.attendance.length > numFaces">
                 <em>and {{activity.attendance.length - numFaces}} other neighbour{{{
@@ -65,16 +65,19 @@
           </div>
           <div class="activity-subsection">
             <h3 class="activity-subsection-title">Discuss</h3>
-            <div ng-repeat="message in messages">
-              <p>{{message.message}}</p>
-              <p>at {{message.createdAt | time}}</p>
-              <p>by {{message.author.name}}</p>
-              <hr/>
+            <div ng-repeat="comment in comments" class="activity-comment row">
+              <div class="col-md-1">
+                <img class="img-circle user-thumbnail pull-left" ng-src="{{comment.author.image}}"/>
+              </div>
+              <div class="col-md-11">
+                <p><strong>{{comment.author.name}}</strong>&nbsp; <span class="activity-comment-message">{{comment.message}}</span></p>
+                <p>{{comment.createdAt | time_long}}</p>
+              </div>
             </div>
             <form>
-              <textarea rows="1" class="form-control" id="message" ng-model="message.text"
-                placeholder="Enter your message here"/><br/>
-              <button class="btn btn-lg btn-primary" ng-click="sendMessage(message.text)" ng-disabled="message.text == null || message.text == ''">Send</button>
+              <textarea rows="3" class="form-control" id="message" ng-model="comment.text"
+                placeholder="Enter your comment here"/><br/>
+              <button class="btn btn-lg btn-primary" ng-click="sendComment(comment.text)" ng-disabled="comment.text == null || comment.text == ''">Send</button>
             </form>
           </div>
         </div>
