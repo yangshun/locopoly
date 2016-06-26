@@ -27,6 +27,7 @@ angular.module('locopoly')
 
     var locations = L.mapbox.featureLayer().addTo(map);
     var circles = [];
+    $scope.chosenActivityId = null;
 
     ref.on('value', function (snapshot) {
       setTimeout(function () {
@@ -36,11 +37,17 @@ angular.module('locopoly')
         });
 
         circles = _.map($scope.activities, function (activity) {
-          return L.circleMarker([activity.latitude, activity.longitude], {
+          var circle = L.circleMarker([activity.latitude, activity.longitude], {
             fillColor: TYPE_MAPPING[activity.type],
             fillOpacity: 1,
             stroke: false
           });
+
+          circle.on('click', function () {
+            $scope.chosenActivityId = activity.$id;
+            $scope.$apply();
+          });
+          return circle;
         });
 
         _.each(circles, function (circle) {
