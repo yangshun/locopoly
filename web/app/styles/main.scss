@@ -52,6 +52,15 @@ $nav-font-size: 22px;
   min-height: calc(100vh - 50px);
 }
 
+%subheader {
+  color: $theme-gray;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
 .navbar {
   border: none;
   margin-bottom: 0;
@@ -325,12 +334,7 @@ $section-padding: 20px;
   }
 
   .activity-subsection-title {
-    color: $theme-gray;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
+    @extend %subheader 
   }
 
   #activity-map {
@@ -496,7 +500,6 @@ input[type="file"]:focus {
   }
   .profile-name {
     text-align: center;
-    font-weight: 600;
   }
   .profile-stats {
     color: $theme-blue;
@@ -515,19 +518,14 @@ input[type="file"]:focus {
 
   .bottom-section {
     padding: 0 20px;
-    .section-header {
-      margin-bottom: 20px;
+    .profile-section {
+      margin-bottom: 30px;
     }
-    .sub-header {
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-size: 10px;
-      color: #888;
-      margin-bottom: 10px;
+    .profile-subsection-title {
+      @extend %subheader
     }
     .profile-personal-info {
-      * {
+      *:nth-child(n+2) {
         padding-bottom: 4px;
       }
       i {
