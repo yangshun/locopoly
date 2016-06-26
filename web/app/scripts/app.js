@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'firebase'
+    'firebase',
+    'ngTagsInput'
   ])
   .filter('time', function() {
     return function (input) {

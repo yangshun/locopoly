@@ -16,7 +16,8 @@
     "moment": "~2.13.0",
     "mapbox.js": "~2.4.0",
     "angularfire": "~2.0.1",
-    "font-awesome": "~4.6.3"
+    "font-awesome": "~4.6.3",
+    "ng-tags-input": "3.1.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
