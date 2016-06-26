@@ -9,6 +9,13 @@
  */
 angular.module('locopoly').controller('LoginCtrl', ['$scope', '$location', '$firebaseArray', 'Auth',
   function ($scope, $location, $firebaseArray, Auth) {
+    $('.logo-board').addClass('animated slideInUp');
+    setTimeout(function () {
+      $('.green-puck').addClass('animated bounce infinite');
+      $('.pink-puck').addClass('animated rubberBand infinite');
+      $('.orange-puck').addClass('animated shake infinite');
+    }, 1000);
+
     Auth.$onAuthStateChanged(function(user) {
       if (user.displayName) {
         $location.path('/explore');

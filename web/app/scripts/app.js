@@ -23,6 +23,11 @@ angular
       return moment(parseInt(input)).format('Do MMM');
     };
   })
+  .filter('time_long', function() {
+    return function (input) {
+      return moment(parseInt(input)).format('h:mm a, Do MMM');
+    };
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
