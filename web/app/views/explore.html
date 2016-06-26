@@ -7,7 +7,8 @@
       </div>
     </div>
     <div class="row activity-list-row" style="width: {{filteredActivities.length * 240}}px">
-      <div ng-repeat="activity in filteredActivities = (activities | filter: $parent.filterSearch)" class="activity-item">
+      <div ng-repeat="activity in filteredActivities = (activities | filter: $parent.filterSearch)" class="activity-item"
+        ng-class="{selected: activity.$id === chosenActivityId}">
         <span class="activity-bounty"><i class="fa fa-trophy"></i> &nbsp;{{activity.bounty}}</span>
         <div class="activity-item-top-section">
           <div class="activity-type activity-type-{{activity.type}}">

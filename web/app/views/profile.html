@@ -2,11 +2,11 @@
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3 page-container profile-container">
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-md-10 col-md-offset-1 col-sm-12">
           <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
               <img class="profile-pic center-block" ng-src="{{ currentUser.photo }}"/>
-              <h1 class="profile-name">{{currentUser.name}}</h1>
+              <h1 class="text-center">{{currentUser.name}}</h1>
               <div class="profile-stats">
                 <i class="fa fa-trophy"></i> <span>58123<span class="stats-label"> points / </span>3<span class="stats-label"> activities</span></span>
               </div>
@@ -17,27 +17,24 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="profile-section profile-personal-info">
-                  <!--<span ng-if="currentUser.phone"><i class="fa fa-phone"></i> <span>{{currentUser.phone}}</span></span>
-                  <span ng-if="currentUser.email"><i class="fa fa-envelope"></i> <span>{{currentUser.email}}</span></span>
-                  <span ng-if="currentUser.address"><i class="fa fa-home"></i> <span>{{currentUser.address}}</span></span>-->
                   <h3 class="profile-subsection-title">Contact</h3>
-                  <div>
+                  <div ng-if="currentUser.phone">
                     <i class="fa fa-phone"></i> <span>{{currentUser.phone}}</span>
                   </div>
-                  <div>
+                  <div ng-if="currentUser.email">
                     <i class="fa fa-envelope"></i> <span>{{currentUser.email}}</span>
                   </div>
-                  <div>
+                  <div ng-if="currentUser.address">
                     <i class="fa fa-home"></i> <span>{{currentUser.address}}</span>
                   </div>
                 </div>
 
-                <div class="profile-section profile-interests">
+                <div class="profile-section">
                   <h3 class="profile-subsection-title">Interests</h3>
-                  <p><span ng-repeat="interest in currentUser.interests">{{interest + "\t"}}</span></p>
+                  <tags-input ng-model="currentUser.interests" class="profile-interests" placeholder="Add an interest"></tags-input>
                 </div>
 
-                <div class="profile-section profile-activity">
+                <div class="profile-section">
                   <h3 class="profile-subsection-title">Participated activities</h3>
                 </div>
               </div>

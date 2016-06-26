@@ -1,121 +1,125 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2 page-container create-activity-container">
-      <h1>Create Activity</h1>
-      <hr/>
-      <div class="form-horizontal">
-        <div class="form-group">
-          <label for="title" class="col-sm-2 control-label">Title</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="title" ng-model="activity.title"
-              placeholder="E.g. 3D2N trip to Batam"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="description" class="col-sm-2 control-label">Description</label>
-          <div class="col-sm-10">
-            <textarea rows="5" class="form-control" id="description" ng-model="activity.description"
-              placeholder="Awesome stuff!"/>
-          </div>
-        </div>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h1 class="text-center">Create Activity</h1>
+          <hr/>
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label for="title" class="col-sm-2 control-label">Title</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="title" ng-model="activity.title"
+                  placeholder="E.g. 3D2N trip to Batam"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description" class="col-sm-2 control-label">Description</label>
+              <div class="col-sm-10">
+                <textarea rows="5" class="form-control" id="description" ng-model="activity.description"
+                  placeholder="Awesome stuff!"/>
+              </div>
+            </div>
 
-        <div class="form-group">
-          <label for="address" class="col-sm-2 control-label">Address</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="address" ng-model="activity.address"
-             placeholder="E.g. Batam!"/>
+            <div class="form-group">
+              <label for="address" class="col-sm-2 control-label">Address</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="address" ng-model="activity.address"
+                placeholder="E.g. Batam!"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="type" class="col-sm-2 control-label">Type</label>
+              <div class="col-sm-10">
+                <select class="form-control" id="type" ng-model="activity.type">
+                  <option value="games">Games</option>
+                  <option value="event">Event</option>
+                  <option value="buying">Buying</option>
+                  <option value="selling">Selling</option>
+                  <option value="favour">Favour</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="latitude" class="col-sm-2 col-md-4 control-label">Latitude</label>
+                  <div class="col-sm-10 col-md-8">
+                    <input type="text" class="form-control" id="latitude" ng-model="activity.latitude"
+                      placeholder="1.304862"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="longitude" class="col-sm-2 col-md-4 control-label">Longitude</label>
+                  <div class="col-sm-10 col-md-8">
+                    <input type="text" class="form-control" id="longitude" ng-model="activity.longitude"
+                      placeholder="103.850654"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="start-time" class="col-sm-2 col-md-4 control-label">Start Time</label>
+                  <div class="col-sm-10 col-md-8">
+                    <input type="text" class="form-control" id="start-time" ng-model="activity.startTime"
+                      placeholder="26 June 2016, 5:45 PM"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="end-time" class="col-sm-2 col-md-4 control-label">End Time</label>
+                  <div class="col-sm-10 col-md-8">
+                    <input type="text" class="form-control" id="end-time" ng-model="activity.endTime"
+                      placeholder="27 June 2016, 6:00 PM"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6" ng-if="activity.type === 'games' || activity.type === 'event'">
+                <div class="form-group">
+                  <label for="max-allowed" class="col-sm-2 col-md-4 control-label">Max Allowed</label>
+                  <div class="col-sm-10 col-md-8">
+                    <input type="text" class="form-control" id="max-allowed" ng-model="activity.maxAllowed"
+                      placeholder="10"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" ng-if="activity.type === 'favour'">
+                <div class="form-group">
+                  <label for="bounty" class="col-sm-2 col-md-4 control-label">Bounty</label>
+                  <div class="col-sm-10 col-md-8">
+                    <input type="text" class="form-control" id="bounty" ng-model="activity.bounty"
+                      placeholder="5"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" ng-if="activity.type === 'buying' || activity.type === 'selling' || activity.type === 'event'">
+                <div class="form-group">
+                  <label for="cost" class="col-sm-2 col-md-4 control-label">Cost</label>
+                  <div class="col-sm-10 col-md-8">
+                    <input type="text" class="form-control" id="cost" ng-model="activity.cost"
+                      placeholder="27 June 2016, 6:00 PM"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="image" class="col-sm-2 col-md-4 control-label">Image</label>
+                  <div class="col-sm-10 col-md-8">
+                    <input type="file" class="form-control" id="image" ng-model="activity.image" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-lg btn-primary" ng-click="addActivity()">Create</button>
           </div>
         </div>
-        <div class="form-group">
-          <label for="type" class="col-sm-2 control-label">Type</label>
-          <div class="col-sm-10">
-            <select class="form-control" id="type" ng-model="activity.type">
-              <option value="games">Games</option>
-              <option value="event">Event</option>
-              <option value="buying">Buying</option>
-              <option value="selling">Selling</option>
-              <option value="favour">Favour</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="latitude" class="col-sm-2 col-md-4 control-label">Latitude</label>
-              <div class="col-sm-10 col-md-8">
-                <input type="text" class="form-control" id="latitude" ng-model="activity.latitude"
-                  placeholder="1.304862"/>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="longitude" class="col-sm-2 col-md-4 control-label">Longitude</label>
-              <div class="col-sm-10 col-md-8">
-                <input type="text" class="form-control" id="longitude" ng-model="activity.longitude"
-                  placeholder="103.850654"/>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="start-time" class="col-sm-2 col-md-4 control-label">Start Time</label>
-              <div class="col-sm-10 col-md-8">
-                <input type="text" class="form-control" id="start-time" ng-model="activity.startTime"
-                  placeholder="26 June 2016, 5:45 PM"/>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="end-time" class="col-sm-2 col-md-4 control-label">End Time</label>
-              <div class="col-sm-10 col-md-8">
-                <input type="text" class="form-control" id="end-time" ng-model="activity.endTime"
-                  placeholder="27 June 2016, 6:00 PM"/>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6" ng-if="activity.type === 'games' || activity.type === 'event'">
-            <div class="form-group">
-              <label for="max-allowed" class="col-sm-2 col-md-4 control-label">Max Allowed</label>
-              <div class="col-sm-10 col-md-8">
-                <input type="text" class="form-control" id="max-allowed" ng-model="activity.maxAllowed"
-                  placeholder="10"/>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6" ng-if="activity.type === 'favour'">
-            <div class="form-group">
-              <label for="bounty" class="col-sm-2 col-md-4 control-label">Bounty</label>
-              <div class="col-sm-10 col-md-8">
-                <input type="text" class="form-control" id="bounty" ng-model="activity.bounty"
-                  placeholder="5"/>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6" ng-if="activity.type === 'buying' || activity.type === 'selling' || activity.type === 'event'">
-            <div class="form-group">
-              <label for="cost" class="col-sm-2 col-md-4 control-label">Cost</label>
-              <div class="col-sm-10 col-md-8">
-                <input type="text" class="form-control" id="cost" ng-model="activity.cost"
-                  placeholder="27 June 2016, 6:00 PM"/>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="image" class="col-sm-2 col-md-4 control-label">Image</label>
-              <div class="col-sm-10 col-md-8">
-                <input type="file" class="form-control" id="image" ng-model="activity.image" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" ng-click="addActivity()">Create</button>
       </div>
     </div>
   </div>
