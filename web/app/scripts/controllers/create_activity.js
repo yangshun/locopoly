@@ -41,7 +41,8 @@ angular.module('locopoly')
         cost: 15,
         maxAllowed: 100,
         bounty: 10,
-        image: "http://www.upsingapore.com/wp-content/uploads/2016/05/FA_HDB_Web-Banner_1920x600px-05.png"
+        image: "http://www.upsingapore.com/wp-content/uploads/2016/05/FA_HDB_Web-Banner_1920x600px-05.png",
+        tags: ['Yoga']
       });
     }
 

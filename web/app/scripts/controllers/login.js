@@ -41,7 +41,8 @@ angular.module('locopoly').controller('LoginCtrl', ['$scope', '$location', '$fir
             address: {},
             phone: '',
             image: firebaseUser.user.photoURL,
-            interests: []
+            processed: true,
+            interests: ['Yoga', 'Basketball', 'Baking', 'Jogging', 'Soccer', 'Programming']
           });
         });
       }).catch(function(error) {
