@@ -20,6 +20,13 @@ angular.module('locopoly')
     };
     $scope.activity = _.assign({}, defaultActivity);
 
+    var currentLocation = [1.3320410607812756, 103.84692311797335];
+    var map = L.mapbox.map('create-map').setView(currentLocation, 18);
+    L.mapbox.styleLayer('mapbox://styles/sebastianquek/cipsbnqto0023ckngkhywj5v1').addTo(map);
+    map.removeControl(map.zoomControl);
+    map.setView(currentLocation);
+    L.marker(currentLocation).addTo(map);
+
     var USE_FAKER = true;
     if (USE_FAKER) {
       var fakeDate = faker.date.future();
@@ -34,8 +41,8 @@ angular.module('locopoly')
           image: currentAuth.photoURL
         },
         verified: false,
-        startTime: moment(new Date()).subtract(2, 'day').format('X'),
-        endTime: moment(new Date()).format('X'),
+        startTime: moment().format('X') + '000',
+        endTime: moment().add(2, 'day').format('X') + '000',
         latitude: 1.333030,
         longitude:  103.848182,
         cost: 15,

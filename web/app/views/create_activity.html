@@ -39,32 +39,18 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="latitude" class="col-sm-2 col-md-4 control-label">Latitude</label>
-              <div class="col-sm-10 col-md-8">
-                <input type="text" class="form-control" id="latitude" ng-model="activity.latitude"
-                  placeholder="1.304862"/>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="longitude" class="col-sm-2 col-md-4 control-label">Longitude</label>
-              <div class="col-sm-10 col-md-8">
-                <input type="text" class="form-control" id="longitude" ng-model="activity.longitude"
-                  placeholder="103.850654"/>
-              </div>
-            </div>
+          <div class="col-md-12">
+            <div id="create-map" style="height: 300px"></div>
           </div>
         </div>
+        <br/>
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label for="start-time" class="col-sm-2 col-md-4 control-label">Start Time</label>
               <div class="col-sm-10 col-md-8">
-                <input type="text" class="form-control" id="start-time" ng-model="activity.startTime"
-                  placeholder="26 June 2016, 5:45 PM"/>
+                <input type="text" class="form-control" id="start-time"
+                  placeholder="26 June 2016, 5:45 PM" value="26 June 2016, 9am"/>
               </div>
             </div>
           </div>
@@ -72,8 +58,8 @@
             <div class="form-group">
               <label for="end-time" class="col-sm-2 col-md-4 control-label">End Time</label>
               <div class="col-sm-10 col-md-8">
-                <input type="text" class="form-control" id="end-time" ng-model="activity.endTime"
-                  placeholder="27 June 2016, 6:00 PM"/>
+                <input type="text" class="form-control" id="end-time"
+                  placeholder="27 June 2016, 6:00 PM" value="28 June 2016, 3pm"/>
               </div>
             </div>
           </div>
@@ -81,7 +67,7 @@
         <div class="row">
           <div class="col-md-6" ng-if="activity.type === 'games' || activity.type === 'event'">
             <div class="form-group">
-              <label for="max-allowed" class="col-sm-2 col-md-4 control-label">Max Allowed</label>
+              <label for="max-allowed" class="col-sm-2 col-md-4 control-label">Participants</label>
               <div class="col-sm-10 col-md-8">
                 <input type="text" class="form-control" id="max-allowed" ng-model="activity.maxAllowed"
                   placeholder="10"/>
@@ -106,11 +92,11 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="form-group">
               <label for="image" class="col-sm-2 col-md-4 control-label">Image</label>
               <div class="col-sm-10 col-md-8">
-                <input type="file" class="form-control" id="image" ng-model="activity.image" />
+                <img src="http://www.upsingapore.com/wp-content/uploads/2016/05/HDB_Thumbnail-355x247-01-1.png" class="img-responsive"/>
               </div>
             </div>
           </div>
